@@ -1,4 +1,5 @@
 import React from "react";
+import ChatBox from "./ChatBox";
 import { socketSendMessage, subscribeToSocketActions } from "../api";
 
 const App = () => {
@@ -6,9 +7,7 @@ const App = () => {
   return (
     <>
       <div>
-        <h1 onClick={() => socketSendMessage("Hello my first msg!")}>
-          Click me
-        </h1>
+        <ChatBox />
       </div>
     </>
   );
