@@ -10,7 +10,7 @@ const Container = styled.div`
   width: ${props => (props.width ? props.width : "default")};
   display: inline-block;
 `;
-const ChatBox = () => {
+const ChatBox = props => {
   let [message, setMessage] = useState("Try sendign it");
   let [messages, setMessages] = useState(["feello!"]);
 
@@ -19,7 +19,9 @@ const ChatBox = () => {
       socketSendMessage(message);
       document.title = message;
       setMessages([...messages, message]);
+      props.updateMessages(message);
       setMessage("");
+      console.log(props.messages);
     }
   };
 
