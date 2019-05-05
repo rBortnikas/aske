@@ -4,33 +4,31 @@ import { socketSendMessage, subscribeToSocketActions } from "../api";
 import { connect } from "react-redux";
 import { updateMessages } from "../actions/actions";
 
-const App = props => {
-  subscribeToSocketActions();
-  updateMessages("Labas");
-  console.log("messages: ", props.messages);
-  const { messages } = props;
-  return (
-    <>
-      <div>
-        <ChatBox updateMessages={updateMessages} messages={messages} />
-      </div>
-    </>
-  );
-};
+class App extends React.Component {
+  state = {};
 
-// const mapDispatchToProps = {
-//   updateMessages
-// };
+  render() {
+    // subscribeToSocketActions();
+    return (
+      <>
+        <div>
+          <ChatBox
+            updateMessages={this.props.updateMessages}
+            messages={this.props.messages}
+          />
+        </div>
+      </>
+    );
+  }
+}
 
-const mapDispatchToProps = dispatch => {
-  return {
-    updatemessages: () => dispatch(updateMessages)
-  };
+const mapDispatchToProps = {
+  updateMessages
 };
 
 const mapStateToProps = state => {
   return {
-    messages: state
+    messages: state.messages
   };
 };
 

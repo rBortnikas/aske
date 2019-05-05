@@ -16,11 +16,16 @@ const ChatBox = props => {
 
   const handleOnClick = () => {
     if (message !== "") {
+      const messageObj = {
+        content: message,
+        time: "now"
+      };
       socketSendMessage(message);
-      document.title = message;
-      setMessages([...messages, message]);
-      props.updateMessages(message);
-      setMessage("");
+      // document.title = message;
+      // setMessages([...messages, message]);
+      props.updateMessages(messageObj);
+      // setMessage("");
+      // console.log(props.messages);
       console.log(props.messages);
     }
   };
@@ -28,9 +33,8 @@ const ChatBox = props => {
   return (
     <>
       <ul>
-        {messages.map(msg => (
-          <li>{msg}</li>
-        ))}
+        {props.messages[0] &&
+          props.messages.map(msg => <li key={msg.content}>{msg.content}</li>)}
       </ul>
       <Container width="70%">
         <TextField
