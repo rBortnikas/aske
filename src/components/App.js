@@ -3,12 +3,17 @@ import ChatBox from "./ChatBox";
 import { socketSendMessage, subscribeToSocketActions } from "../api";
 import { connect } from "react-redux";
 import { updateMessages } from "../actions/actions";
+import styled from "styled-components";
+
+const Container = styled.div`
+  height: 100%;
+`;
 
 class App extends React.Component {
   state = {};
 
   render() {
-    // subscribeToSocketActions();
+    subscribeToSocketActions();
     return (
       <>
         <div>

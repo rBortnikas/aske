@@ -6,37 +6,43 @@ import styled from "styled-components";
 
 import { socketSendMessage } from "../api";
 
-const Container = styled.div`
-  width: ${props => (props.width ? props.width : "default")};
-  display: inline-block;
+const Footer = styled.div``;
+
+const Main = styled.div``;
+
+const Chat = styled.div`
+  height: 350px;
 `;
+
 const ChatBox = props => {
-  let [message, setMessage] = useState("Try sendign it");
-  let [messages, setMessages] = useState(["feello!"]);
+  let [message, setMessage] = useState("");
+  // let [messages, setMessages] = useState(["feello!"]);
 
   const handleOnClick = () => {
     if (message !== "") {
       const messageObj = {
         content: message,
-        time: "now"
+        time: "now",
+        author: "Rokas"
       };
-      socketSendMessage(message);
+      socketSendMessage(messageObj);
       // document.title = message;
       // setMessages([...messages, message]);
-      props.updateMessages(messageObj);
-      // setMessage("");
-      // console.log(props.messages);
-      console.log(props.messages);
+      // props.updateMessages(messageObj);
+      setMessage("");
+      console.log(props);
     }
   };
 
   return (
     <>
-      <ul>
-        {props.messages[0] &&
-          props.messages.map(msg => <li key={msg.content}>{msg.content}</li>)}
-      </ul>
-      <Container width="70%">
+      <Chat>
+        <ul>
+          {props.messages[0] &&
+            props.messages.map(msg => <li key={msg.content}>{msg.content}</li>)}
+        </ul>
+      </Chat>
+      <Footer>
         <TextField
           id="outlined-bare"
           margin="normal"
@@ -47,8 +53,7 @@ const ChatBox = props => {
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
-      </Container>
-      <Container width="30%">
+
         <Button
           variant="contained"
           color="primary"
@@ -59,7 +64,7 @@ const ChatBox = props => {
         >
           send
         </Button>
-      </Container>
+      </Footer>
     </>
   );
 };
