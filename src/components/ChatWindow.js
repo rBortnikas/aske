@@ -16,7 +16,7 @@ const ChatWindow = props => {
     <>
       <div pad="xsmall">
         {props.messages.map(msg => (
-          <Message msg={msg.messageText} />
+          <Message msg={msg.messageText} key={msg.id} />
         ))}
       </div>
 
