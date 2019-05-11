@@ -9,6 +9,7 @@ const NameInput = props => {
       <input value={name} onChange={e => setName(e.target.value)} />
       <h1>Or go anonymous</h1>
       <button onClick={() => props.handleCreateUser(name)}>Go</button>
+      <h1>---------------------</h1>
     </>
   );
 };
