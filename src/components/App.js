@@ -1,28 +1,21 @@
 import React from "react";
-import ChatBox from "./ChatBox";
-import { socketSendMessage, subscribeToSocketActions } from "../api";
+import MainPage from "./MainPage";
+import { subscribeToSocketActions } from "../api";
 import { connect } from "react-redux";
 import { updateMessages } from "../actions/actions";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 100%;
-`;
 
 class App extends React.Component {
   state = {};
+  componentDidMount() {
+    subscribeToSocketActions();
+  }
 
   render() {
-    subscribeToSocketActions();
     return (
-      <>
-        <div>
-          <ChatBox
-            updateMessages={this.props.updateMessages}
-            messages={this.props.messages}
-          />
-        </div>
-      </>
+      <MainPage
+        updateMessages={this.props.updateMessages}
+        messages={this.props.messages}
+      />
     );
   }
 }
