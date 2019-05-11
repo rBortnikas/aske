@@ -15,6 +15,7 @@ const ChatWindow = props => {
   return (
     <>
       <div pad="xsmall">
+        {props.messages.length === 0 && <h3>Loading messages...</h3>}
         {props.messages.map(msg => (
           <Message msg={msg.messageText} key={msg.id} />
         ))}
@@ -27,7 +28,7 @@ const ChatWindow = props => {
         size="medium"
       />
 
-      <button onClick={handleOnClick}>Send message</button>
+      <button onClick={handleOnClick}>Ask a question</button>
     </>
   );
 };

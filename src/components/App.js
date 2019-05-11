@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { updateMessages } from "../actions/actions";
 import LandingPage from "../pages/LandingPage";
-import TestPage from "../pages/TestPage";
+import CreateSessionPage from "../pages/CreateSessionPage";
 import * as ROUTES from "../pages/routes";
 
 function App(props) {
   useEffect(() => {
+    console.log("should subscribe");
     subscribeToSocketActions();
   }, []);
 
@@ -23,11 +24,7 @@ function App(props) {
       />
       <hr />
       <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route
-        path={ROUTES.TEST}
-        component={TestPage}
-        messages={props.messages}
-      />
+      <Route path={ROUTES.CREATE_SESSION} component={CreateSessionPage} />
     </Router>
   );
 }
