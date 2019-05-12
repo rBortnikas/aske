@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createSession } from "../api";
 
 function CreateSessionPage() {
   let [sessionName, setSessionName] = useState("");
@@ -7,8 +8,10 @@ function CreateSessionPage() {
   function handleOnClick() {
     if (!sessionName) {
       setSessionName("funny-random-name");
+      createSession(sessionName);
     }
     setSessionCreated(true);
+    createSession(sessionName);
   }
 
   return (
