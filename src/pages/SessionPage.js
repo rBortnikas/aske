@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateMessages } from "../actions/actions";
 import ChatWindow from "../components/ChatWindow";
 import * as ROUTES from "../pages/routes";
 
 function SessionPage(props) {
-  let [sessionName, setSessionName] = useState("");
+  const { session, messages, history } = props;
+  useEffect(() => {
+    if (!session.sessionId) {
+      history.push({
+        pathname: "/"
+      });
+    }
+  });
   return (
     <div>
       <h1>SessionPage</h1>
@@ -24,22 +30,16 @@ function SessionPage(props) {
       </button> */}
       <h3>To be completed</h3>
       <hr />
-      <ChatWindow messages={props.messages} />
+      {session.sessionId && <ChatWindow messages={messages} />}
     </div>
   );
 }
 
-const mapDispatchToProps = {
-  updateMessages
-};
-
 const mapStateToProps = state => {
   return {
-    messages: state.messages
+    messages: state.messages,
+    session: state.session
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SessionPage);
+export default connect(mapStateToProps)(SessionPage);

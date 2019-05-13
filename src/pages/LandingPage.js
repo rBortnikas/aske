@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Route, Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { getSession, subscribeToSocketActions } from "../api";
+import { setSession } from "../actions/actions";
 
 import * as ROUTES from "../pages/routes";
 
@@ -10,15 +12,14 @@ function LandingPage(props) {
 
   function handleOnClick() {
     if (sessionName) {
-      let { history } = props;
       getSession(sessionName)
         .then(sessionId => {
-          console.log("sesh id: ", sessionId);
+          console.log("seshijon : ", sessionName, sessionId);
           subscribeToSocketActions(sessionId);
-          history.push({
+          props.setSession({ sessionName, sessionId });
+          props.history.push({
             pathname: "/session"
           });
-          // add sessionId to redux store, then do a check on /session page
         })
         .catch(error => {
           console.log("Oopsie: ", error);
@@ -47,4 +48,19 @@ function LandingPage(props) {
   );
 }
 
-export default withRouter(LandingPage);
+const mapDispatchToProps = {
+  setSession
+};
+
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     setSession: () => {
+//       dispatch(setSession);
+//     }
+//   };
+// };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(LandingPage);
