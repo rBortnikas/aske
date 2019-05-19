@@ -13,10 +13,12 @@ function LandingPage(props) {
   function handleOnClick() {
     if (sessionName) {
       getSession(sessionName)
-        .then(sessionId => {
-          console.log("seshijon : ", sessionName, sessionId);
+        .then(miniSessionObject => {
+          miniSessionObject = JSON.parse(miniSessionObject);
+          const { sessionId, sessionInfoText } = miniSessionObject;
+          console.log("seshijon : ", sessionName, sessionId, sessionInfoText);
           subscribeToSocketActions(sessionId);
-          props.setSession({ sessionName, sessionId });
+          props.setSession({ sessionName, sessionId, sessionInfoText });
           props.history.push({
             pathname: "/session"
           });

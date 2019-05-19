@@ -54,9 +54,8 @@ export function socketUpvoteMessage(messageId, upvoterId) {
   socket.emit("UPVOTE", upvoteObject);
 }
 
-export function createSession(sessionName) {
-  const url =
-    "http://localhost:8888/api/createSession?sessionName=" + sessionName;
+export function createSession(sessionName, sessionInfoText) {
+  const url = `http://localhost:8888/api/createSession?sessionName=${sessionName}&sessionInfoText=${sessionInfoText}`;
   const params = {
     method: "POST"
   };

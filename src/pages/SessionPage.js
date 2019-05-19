@@ -15,8 +15,8 @@ function SessionPage(props) {
   });
   return (
     <div>
-      <h1>SessionPage</h1>
-      <h3>To be completed</h3>
+      <h4>SessionPage</h4>
+      <h2>{session.sessionInfoText}</h2>
       <hr />
       {session.sessionId && (
         <ChatWindow messages={messages} sessionId={session.sessionId} />
