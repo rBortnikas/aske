@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { upvoteMessage } from "../api";
+import { socketUpvoteMessage } from "../api";
 
 const Message = props => {
   const [upvoted, setUpvoted] = useState(false);
@@ -8,7 +8,7 @@ const Message = props => {
 
   function onClick() {
     setUpvoted(true);
-    upvoteMessage(sessionId, messageId, author);
+    socketUpvoteMessage(messageId, author);
   }
 
   return (

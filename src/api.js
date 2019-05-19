@@ -49,6 +49,11 @@ export function socketSendMessage(messageText, sessionId) {
   socket.emit("MESSAGE", message);
 }
 
+export function socketUpvoteMessage(messageId, upvoterId) {
+  const upvoteObject = { messageId, upvoterId };
+  socket.emit("UPVOTE", upvoteObject);
+}
+
 export function createSession(sessionName) {
   const url =
     "http://localhost:8888/api/createSession?sessionName=" + sessionName;
@@ -73,16 +78,4 @@ export function getSession(sessionName) {
     .catch(error => {
       console.log("getSession Error: ", error);
     });
-}
-
-export function upvoteMessage(sessionId, messageId, upvoterId) {
-  const url = `http://localhost:8888/api/upvoteMessage?sessionId=${sessionId}&messageId=${messageId}&upvoterId=${upvoterId}`;
-  console.log("%c%s", "color: #00a3cc", url);
-  const params = {
-    method: "POST"
-  };
-
-  return fetch(url, params).catch(error => {
-    console.log("upvoteMessage Error: ", error);
-  });
 }
