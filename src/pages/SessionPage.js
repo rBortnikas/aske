@@ -16,21 +16,11 @@ function SessionPage(props) {
   return (
     <div>
       <h1>SessionPage</h1>
-      {/* <h2>Join session</h2>
-      <input
-        value={sessionName}
-        onChange={e => setSessionName(e.target.value)}
-        placeholder="Enter session ID"
-      />
-      <button>Join</button>
-
-      <h2>Or create session</h2>
-      <button>
-        <Link to={ROUTES.CREATE_SESSION}>Create</Link>
-      </button> */}
       <h3>To be completed</h3>
       <hr />
-      {session.sessionId && <ChatWindow messages={messages} />}
+      {session.sessionId && (
+        <ChatWindow messages={messages} sessionId={session.sessionId} />
+      )}
     </div>
   );
 }

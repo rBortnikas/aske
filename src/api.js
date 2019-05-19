@@ -41,9 +41,10 @@ export function subscribeToSocketActions(sessionId) {
   });
 }
 
-export function socketSendMessage(messageText) {
+export function socketSendMessage(messageText, sessionId) {
+  console.log("sending msg: ", sessionId);
   const author = "Rokas";
-  const sessionId = "test123456";
+  // const sessionId = "test123456";
   const message = { messageText, author, sessionId };
   socket.emit("MESSAGE", message);
 }
@@ -55,13 +56,9 @@ export function createSession(sessionName) {
     method: "POST"
   };
 
-  return (
-    fetch(url, params)
-      // .then(res => res)
-      .catch(error => {
-        console.log("createSession Error: ", error);
-      })
-  );
+  return fetch(url, params).catch(error => {
+    console.log("createSession Error: ", error);
+  });
 }
 
 // gets sessionId which is used by sockets
@@ -78,20 +75,14 @@ export function getSession(sessionName) {
     });
 }
 
-export const getCurrentlyPlaying = token => {
-  const url = "https://api.spotify.com/v1/me/player/currently-playing";
-
+export function upvoteMessage(sessionId, messageId, upvoterId) {
+  const url = `http://localhost:8888/api/upvoteMessage?sessionId=${sessionId}&messageId=${messageId}&upvoterId=${upvoterId}`;
+  console.log("%c%s", "color: #00a3cc", url);
   const params = {
-    method: "GET",
-    headers: { Authorization: "Bearer " + token }
+    method: "POST"
   };
-  return fetch(url, params)
-    .then(data => data.json())
-    .then(data => {
-      console.log(data);
-      return data;
-    })
-    .catch(error => {
-      console.log("Error: ", error);
-    });
-};
+
+  return fetch(url, params).catch(error => {
+    console.log("upvoteMessage Error: ", error);
+  });
+}

@@ -7,7 +7,7 @@ const ChatWindow = props => {
 
   const handleOnClick = () => {
     if (input) {
-      socketSendMessage(input);
+      socketSendMessage(input, props.sessionId);
       setInput("");
     }
   };
@@ -17,7 +17,7 @@ const ChatWindow = props => {
       <div pad="xsmall">
         {props.messages.length === 0 && <h3>Loading messages...</h3>}
         {props.messages.map(msg => (
-          <Message msg={msg} key={msg.id} />
+          <Message msg={msg} key={msg.messageId} />
         ))}
       </div>
 
