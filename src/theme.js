@@ -1,7 +1,7 @@
 export const theme = {
   global: {
     colors: {
-      brand: "#228BE6"
+      brand: "white"
     },
     font: {
       family: "Roboto",
@@ -13,8 +13,29 @@ export const theme = {
     },
     focus: {
       border: {
-        color: "#228BE6"
+        color: "white"
       }
+    },
+    control: {
+      border: {
+        color: "white",
+        radius: "13px",
+        width: "2px"
+      }
+    },
+    input: {
+      weight: 400
+    }
+  },
+  button: {
+    color: "white",
+    primary: {
+      color: "#00DD95"
+    },
+    border: {
+      radius: "13px",
+      color: "white",
+      width: "2px"
     }
   }
 };
