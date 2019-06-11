@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getSession, subscribeToSocketActions } from "../api";
@@ -10,8 +10,8 @@ import * as ROUTES from "../pages/routes";
 import { Box, ResponsiveContext, Heading, TextInput, Button } from "grommet";
 
 function LandingPage(props) {
-  let [sessionName, setSessionName] = useState("");
-  let [error, setError] = useState("");
+  const [sessionName, setSessionName] = useState("");
+  const [error, setError] = useState("");
 
   function handleOnClick() {
     if (sessionName) {
@@ -28,13 +28,24 @@ function LandingPage(props) {
         })
         .catch(error => {
           console.log("Oopsie: ", error);
-          setError("No sessions named: " + sessionName);
+          setError("no sessions named " + sessionName);
         });
+    }
+  }
+
+  function handleSessionNameInput(e) {
+    const name = e.target.value;
+    if (name.length <= 15) {
+      setSessionName(name);
     }
   }
 
   return (
     <>
+      <BackroundImage error={!!error} />
+      <Logo level="1" alignSelf="center">
+        aske
+      </Logo>
       <Raised>
         <Heading level="4" color="#9498FF">
           Q&A app for any event
@@ -42,11 +53,15 @@ function LandingPage(props) {
         <Heading level="2" color="white">
           Join session
         </Heading>
-        <Heading level="3">{error}</Heading>
+        <ErrorContainer height={error ? 40 : 0}>
+          <Heading level="5" color="#FF6961">
+            {error}
+          </Heading>
+        </ErrorContainer>
         <SessionInput
           focusIndicator={false}
           value={sessionName}
-          onChange={e => setSessionName(e.target.value)}
+          onChange={handleSessionNameInput}
           placeholder="enter session ID"
           size="large"
         />
@@ -67,7 +82,9 @@ function LandingPage(props) {
           {/* <Link to={ROUTES.CREATE_SESSION}>Create</Link> */}
         </ActionButton>
       </Raised>
-      <Image src={image} />
+      <ImageContainer>
+        <Image src={image} />
+      </ImageContainer>
     </>
   );
 }
@@ -90,17 +107,91 @@ const ActionButton = styled(Button)`
   border: 3px solid white;
   padding: 12px 25px 12px 25px;
   font-size: 25px;
+  box-shadow: none;
+  &:focus {
+    box-shadow: none;
+  }
+  &:hover {
+    box-shadow: none;
+  }
 `;
 
 const SessionInput = styled(TextInput)`
   background-color: white;
 `;
 
-const PeopleDancing = () => {
-  return <img src={image} alt="Logo" />;
+const BackroundImage = props => {
+  const [width, setWidth] = useState(window.innerWidth);
+  const [height, setHeight] = useState(300);
+
+  useEffect(() => {
+    let innerWidth = window.innerWidth;
+    let innerHeight = 305;
+    if (innerWidth > 420) {
+      // innerWidth = 800;
+      innerHeight = 370;
+    }
+    setHeight(innerHeight);
+    setWidth(innerWidth);
+  }, []);
+
+  useEffect(() => {
+    if (props.error) {
+      setHeight(345);
+    }
+  });
+
+  return (
+    <ShapeContainer width={width}>
+      <Shape width={width} height={height} />
+    </ShapeContainer>
+  );
 };
 
+const Shape = styled.div`
+  width: ${props => props.width + 100}px;
+  right: 50px;
+  background-color: #08126c;
+  height: ${props => props.height}px;
+  position: relative;
+  border-bottom-left-radius: 120px;
+  border-bottom-right-radius: 120px;
+  transition: 0.1s ease-out;
+`;
+
+const ShapeContainer = styled.div`
+  overflow: hidden;
+  width: ${props => props.width}px;
+  position: absolute;
+  z-index: -1;
+`;
+
+const Logo = styled(Heading)`
+  color: white;
+  font-size: 95px;
+  font-family: "Nunito", sans-serif;
+  margin-bottom: 5px;
+  margin-top: 35px;
+`;
+
+const ErrorContainer = styled.div`
+  height: ${props => props.height}px;
+  transition: 0.1s ease-out;
+`;
+
 const Image = styled.img`
-  width: 90%;
+  position: relative;
+  bottom: -50px;
+  right: 30%;
+  width: 160%;
   margin-top: 100px;
+  opacity: 0.25;
+`;
+
+const ImageContainer = styled.div`
+  overflow: hidden;
+  bottom: 0px;
+  position: absolute;
+  z-index: -2;
+  width: 411px;
 `;

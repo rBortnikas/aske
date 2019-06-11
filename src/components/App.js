@@ -16,11 +16,11 @@ function App() {
       <ResponsiveContext.Consumer>
         {size => (
           <Router>
-            <BackroundImage />
+            {/* <BackroundImage /> */}
             <Box fill>
-              <Logo level="1" alignSelf="center">
+              {/* <Logo level="1" alignSelf="center">
                 aske
-              </Logo>
+              </Logo> */}
               <Box flex direction="row" overflow={{ horizontal: "hidden" }}>
                 <Box flex align="center" jusitfy="center">
                   <Route exact path={ROUTES.LANDING} component={LandingPage} />
@@ -41,11 +41,6 @@ function App() {
 
 export default App;
 
-const divStyle = {
-  position: "absolute",
-  zIndex: -1
-};
-
 const BackroundImage = () => {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(355);
@@ -62,34 +57,37 @@ const BackroundImage = () => {
 
   useEffect(() => {
     let innerWidth = window.innerWidth;
-    let innerHeight = 355;
+    let innerHeight = 325;
     if (innerWidth > 420) {
-      innerWidth = 250;
+      // innerWidth = 800;
       innerHeight = 370;
     }
     setHeight(innerHeight);
     setWidth(innerWidth);
   }, []);
   return (
-    <svg
-      width="100%"
-      height={height}
-      viewBox={"0 0 " + width + " 200"}
-      xmlns="http://www.w3.org/2000/svg"
-      style={divStyle}
-    >
-      <rect
-        x="-50"
-        y="-350"
-        width={width + 100}
-        height="600"
-        // rx={width / 2.74}
-        fill="#08126c"
-        <animate attributeName="rx" begin="0s" dur="1s" repeatCount="indefinite" from={width / 2.74} to={width / 20}/>
-      />
-    </svg>
+    <ShapeContainer width={width}>
+      <Shape width={width} height={height} />
+    </ShapeContainer>
   );
 };
+
+const Shape = styled.div`
+  width: ${props => props.width + 100}px;
+  right: 50px;
+  background-color: #08126c;
+  height: ${props => props.height}px;
+  position: relative;
+  border-bottom-left-radius: 120px;
+  border-bottom-right-radius: 120px;
+`;
+
+const ShapeContainer = styled.div`
+  overflow: hidden;
+  width: ${props => props.width}px;
+  position: absolute;
+  z-index: -1;
+`;
 
 const Logo = styled(Heading)`
   color: white;
