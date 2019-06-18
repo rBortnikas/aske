@@ -40,12 +40,18 @@ function LandingPage(props) {
     }
   }
 
+  function handleCreateSession() {
+    props.history.push({
+      pathname: ROUTES.CREATE_SESSION
+    });
+  }
+
   return (
     <>
-      <BackroundImage error={!!error} />
-      <Logo level="1" alignSelf="center">
+      {/* <BackroundImage error={!!error} /> */}
+      {/* <Logo level="1" alignSelf="center">
         aske
-      </Logo>
+      </Logo> */}
       <Raised>
         <Heading level="4" color="#9498FF">
           Q&A app for any event
@@ -78,6 +84,7 @@ function LandingPage(props) {
           color="#686DFF"
           primary
           focusIndicator={false}
+          onClick={handleCreateSession}
         >
           {/* <Link to={ROUTES.CREATE_SESSION}>Create</Link> */}
         </ActionButton>

@@ -16,11 +16,8 @@ function App() {
       <ResponsiveContext.Consumer>
         {size => (
           <Router>
-            {/* <BackroundImage /> */}
             <Box fill>
-              {/* <Logo level="1" alignSelf="center">
-                aske
-              </Logo> */}
+              <Navbar />
               <Box flex direction="row" overflow={{ horizontal: "hidden" }}>
                 <Box flex align="center" jusitfy="center">
                   <Route exact path={ROUTES.LANDING} component={LandingPage} />
