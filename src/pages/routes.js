@@ -1,4 +1,8 @@
-export const LANDING = "/";
-export const CREATE_SESSION = "/createSession";
-export const SESSION = "/session";
-export const TEST = "/test";
+export const routes = {
+  LANDING: "/",
+  CREATE_SESSION: "/createSession",
+  SESSION: "/session",
+  SPECIFIC_SESSION: "/session/:sessionName",
+  TEST: "/test",
+  ERROR: "*"
+};

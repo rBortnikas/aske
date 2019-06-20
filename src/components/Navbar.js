@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Box, Button, Heading } from "grommet";
 import { StatusUnknown } from "grommet-icons";
-import * as ROUTES from "../pages/routes";
+import { routes } from "../pages/routes";
 import { withRouter } from "react-router-dom";
 import React, { useState, useEffect, useReducer } from "react";
 import { connect } from "react-redux";
@@ -10,10 +10,10 @@ import { setSession } from "../actions/actions";
 import styled from "styled-components";
 
 const Navigation = props => {
-  const isLandingPage = props.location.pathname === "/";
+  const isLandingPage = props.location.pathname === routes.LANDING;
   const [isLarge, setIsLarge] = useState(isLandingPage);
   useEffect(() => {
-    setIsLarge(props.location.pathname === "/");
+    setIsLarge(props.location.pathname === routes.LANDING);
     console.log(props.location.pathname);
   }, [props.location.pathname]);
   return (

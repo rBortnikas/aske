@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import styled from "styled-components";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import SessionPage from "../pages/SessionPage";
 import CreateSessionPage from "../pages/CreateSessionPage";
-import * as ROUTES from "../pages/routes";
+import NotFoundPage from "../pages/NotFoundPage";
+import { routes } from "../pages/routes";
 
 import { Grommet, Box, ResponsiveContext, Heading } from "grommet";
 import { theme } from "../theme";
@@ -15,21 +16,32 @@ function App() {
     <Grommet theme={theme}>
       <ResponsiveContext.Consumer>
         {size => (
-          <Router>
+          <BrowserRouter>
             <Box fill>
               <Navbar />
               <Box flex direction="row" overflow={{ horizontal: "hidden" }}>
                 <Box flex align="center" jusitfy="center">
-                  <Route exact path={ROUTES.LANDING} component={LandingPage} />
-                  <Route
-                    path={ROUTES.CREATE_SESSION}
-                    component={CreateSessionPage}
-                  />
-                  <Route path={ROUTES.SESSION} component={SessionPage} />
+                  <Switch>
+                    <Route
+                      exact
+                      path={routes.LANDING}
+                      component={LandingPage}
+                    />
+                    <Route
+                      path={routes.CREATE_SESSION}
+                      component={CreateSessionPage}
+                    />
+                    {/* <Route path={routes.SESSION} component={SessionPage} /> */}
+                    <Route
+                      path={routes.SPECIFIC_SESSION}
+                      component={SessionPage}
+                    />
+                    <Route path={routes.ERROR} component={NotFoundPage} />
+                  </Switch>
                 </Box>
               </Box>
             </Box>
-          </Router>
+          </BrowserRouter>
         )}
       </ResponsiveContext.Consumer>
     </Grommet>

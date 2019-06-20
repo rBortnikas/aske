@@ -6,7 +6,7 @@ import { setSession } from "../actions/actions";
 import styled from "styled-components";
 
 import image from "C:/Users/Rokas/Desktop/chat_app/chat_app/src/peopleDancing.jpg";
-import * as ROUTES from "../pages/routes";
+import { routes } from "../pages/routes";
 import { Box, ResponsiveContext, Heading, TextInput, Button } from "grommet";
 
 function LandingPage(props) {
@@ -17,13 +17,14 @@ function LandingPage(props) {
     if (sessionName) {
       getSession(sessionName)
         .then(miniSessionObject => {
+          // create active session object on serverside to quickly check
           miniSessionObject = JSON.parse(miniSessionObject);
-          const { sessionId, sessionInfoText } = miniSessionObject;
-          console.log("seshijon : ", sessionName, sessionId, sessionInfoText);
-          subscribeToSocketActions(sessionId);
-          props.setSession({ sessionName, sessionId, sessionInfoText });
+          // const { sessionId, sessionInfoText } = miniSessionObject;
+          // console.log("seshijon : ", sessionName, sessionId, sessionInfoText);
+          // subscribeToSocketActions(sessionId);
+          // props.setSession({ sessionName, sessionId, sessionInfoText });
           props.history.push({
-            pathname: "/session"
+            pathname: `${routes.SESSION}/${sessionName}`
           });
         })
         .catch(error => {
@@ -42,16 +43,12 @@ function LandingPage(props) {
 
   function handleCreateSession() {
     props.history.push({
-      pathname: ROUTES.CREATE_SESSION
+      pathname: routes.CREATE_SESSION
     });
   }
 
   return (
     <>
-      {/* <BackroundImage error={!!error} /> */}
-      {/* <Logo level="1" alignSelf="center">
-        aske
-      </Logo> */}
       <Raised>
         <Heading level="4" color="#9498FF">
           Q&A app for any event
@@ -85,9 +82,7 @@ function LandingPage(props) {
           primary
           focusIndicator={false}
           onClick={handleCreateSession}
-        >
-          {/* <Link to={ROUTES.CREATE_SESSION}>Create</Link> */}
-        </ActionButton>
+        />
       </Raised>
       <ImageContainer>
         <Image src={image} />
@@ -125,60 +120,6 @@ const ActionButton = styled(Button)`
 
 const SessionInput = styled(TextInput)`
   background-color: white;
-`;
-
-const BackroundImage = props => {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(300);
-
-  useEffect(() => {
-    let innerWidth = window.innerWidth;
-    let innerHeight = 305;
-    if (innerWidth > 420) {
-      // innerWidth = 800;
-      innerHeight = 370;
-    }
-    setHeight(innerHeight);
-    setWidth(innerWidth);
-  }, []);
-
-  useEffect(() => {
-    if (props.error) {
-      setHeight(345);
-    }
-  });
-
-  return (
-    <ShapeContainer width={width}>
-      <Shape width={width} height={height} />
-    </ShapeContainer>
-  );
-};
-
-const Shape = styled.div`
-  width: ${props => props.width + 100}px;
-  right: 50px;
-  background-color: #08126c;
-  height: ${props => props.height}px;
-  position: relative;
-  border-bottom-left-radius: 120px;
-  border-bottom-right-radius: 120px;
-  transition: 0.1s ease-out;
-`;
-
-const ShapeContainer = styled.div`
-  overflow: hidden;
-  width: ${props => props.width}px;
-  position: absolute;
-  z-index: -1;
-`;
-
-const Logo = styled(Heading)`
-  color: white;
-  font-size: 95px;
-  font-family: "Nunito", sans-serif;
-  margin-bottom: 5px;
-  margin-top: 35px;
 `;
 
 const ErrorContainer = styled.div`

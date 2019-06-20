@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { createSession } from "../api";
+import styled from "styled-components";
+import { Box, Button, Heading, TextInput } from "grommet";
 
 function CreateSessionPage() {
   let [sessionName, setSessionName] = useState("");
@@ -16,26 +18,43 @@ function CreateSessionPage() {
   }
 
   return (
-    <div>
-      <h1>Create Session Page</h1>
+    <Container>
       {!sessionCreated && (
         <>
-          <h2>Create session</h2>
-          <input
+          <Heading level="2" alignSelf="center">
+            Create Session
+          </Heading>
+          {/* <input
             value={sessionName}
             onChange={e => setSessionName(e.target.value)}
             placeholder="Enter session name"
+          /> */}
+
+          <InputField
+            focusIndicator={false}
+            value={sessionName}
+            onChange={e => setSessionName(e.target.value)}
+            placeholder="Enter session name"
+            size="large"
           />
 
-          <input
+          <InputField
+            focusIndicator={false}
             value={sessionInfoText}
             onChange={e => setSessionInfoText(e.target.value)}
             placeholder="An optional header"
+            size="large"
           />
 
-          <h3>or get an auto generated one</h3>
+          <Heading level="3">or get an auto generated one</Heading>
 
-          <button onClick={handleOnClick}>create</button>
+          <ActionButton
+            label="Create"
+            color="#686DFF"
+            primary
+            focusIndicator={false}
+            onClick={handleOnClick}
+          />
         </>
       )}
       {sessionCreated && (
@@ -44,8 +63,32 @@ function CreateSessionPage() {
           <h3>www.somecoolname.com/{sessionName}</h3>
         </>
       )}
-    </div>
+    </Container>
   );
 }
 
 export default CreateSessionPage;
+
+const Container = styled.div`
+  text-align: center;
+`;
+
+const InputField = styled(TextInput)`
+  background-color: white;
+  border: 2px solid #08126c;
+  margin-bottom: 16px;
+  margin-top: 10px;
+`;
+
+const ActionButton = styled(Button)`
+  border: 3px solid white;
+  padding: 12px 25px 12px 25px;
+  font-size: 25px;
+  box-shadow: none;
+  &:focus {
+    box-shadow: none;
+  }
+  &:hover {
+    box-shadow: none;
+  }
+`;
