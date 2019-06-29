@@ -3,6 +3,20 @@ import Message from "./Message";
 import { socketSendMessage } from "../api";
 import styled from "styled-components";
 import { Button } from "grommet";
+import MessageInput from "./MessageInput";
+import { connect } from "react-redux";
+import { openModalAction, closeModalAction } from "../actions/actions";
+
+const mapDispatchToProps = {
+  openModalAction,
+  closeModalAction
+};
+
+const mapStateToProps = state => {
+  return {
+    modalOpen: state.UI.modalOpen
+  };
+};
 
 const ChatWindow = props => {
   let [input, setInput] = useState("");
@@ -12,11 +26,23 @@ const ChatWindow = props => {
     setMessages(sortMessages(props.messages));
   }, [props.messages]);
 
-  function handleOnClick() {
-    if (input) {
-      socketSendMessage(input, props.sessionId);
-      setInput("");
+  // function handleOnClick() {
+  //   if (input) {
+  //     socketSendMessage(input, props.sessionId);
+  //     setInput("");
+  //   }
+  // }
+
+  function handleAsk() {
+    if (props.modalOpen) {
+      props.closeModalAction();
+    } else {
+      props.openModalAction();
     }
+  }
+
+  function handleClose() {
+    props.closeModalAction();
   }
 
   function sortMessages(messages) {
@@ -32,29 +58,42 @@ const ChatWindow = props => {
           <Message msg={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
+      {props.modalOpen && <MessageInput closeModalAction={closeModalAction} />}
 
-      <textarea
+      {/* <textarea
         placeholder="Enter your question"
         value={input}
         onChange={e => setInput(e.target.value)}
         size="medium"
-      />
+      /> */}
 
-      <button onClick={handleOnClick}>Ask a question</button>
+      {/* <button onClick={handleOnClick}>Ask a question</button> */}
       <BottomBar>
+        {props.modalOpen && (
+          <ActionButton
+            label="Close"
+            color="#FF6F6F"
+            primary
+            focusIndicator={false}
+            onClick={handleClose}
+          />
+        )}
         <ActionButton
           label="Ask"
-          color="#686DFF"
+          color={props.modalOpen ? "#00DD95" : "#686DFF"}
           primary
           focusIndicator={false}
-          onClick={() => {}}
+          onClick={handleAsk}
         />
       </BottomBar>
     </>
   );
 };
 
-export default ChatWindow;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatWindow);
 
 const BottomBar = styled.div`
   position: fixed;
@@ -67,12 +106,13 @@ const BottomBar = styled.div`
     rgba(255, 0, 0, 0),
     rgba(255, 255, 255, 1)
   );
-  padding: 20px;
-  z-index: 21;
+  padding: 20px 0 20px 0;
+  z-index: 41;
 `;
 
 const ActionButton = styled(Button)`
   border: 3px solid white;
+  margin: 0 5px 0 5px;
   padding: 12px 25px 12px 25px;
   font-size: 25px;
   box-shadow: none;
@@ -82,4 +122,5 @@ const ActionButton = styled(Button)`
   &:hover {
     box-shadow: none;
   }
+  /* transition: 0.1s; */
 `;

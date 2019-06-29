@@ -18,7 +18,7 @@ const Navigation = props => {
   }, [props.location.pathname]);
   return (
     <>
-      <BackroundImage isLarge={isLarge} />;
+      <BackroundImage isLarge={isLarge} />
       <Logo alignSelf="center" isLarge={isLarge}>
         aske
       </Logo>
@@ -40,17 +40,17 @@ const BackroundImage = props => {
     //   innerHeight = 370;
     // }
     if (props.isLarge) {
-      innerHeight = 455;
+      innerHeight = 435;
     }
     setHeight(innerHeight);
     setWidth(innerWidth);
-  });
+  }, [props.isLarge]);
 
   useEffect(() => {
     if (props.error) {
       setHeight(345);
     }
-  });
+  }, [props.error]);
 
   return (
     <ShapeContainer width={width}>
@@ -83,7 +83,7 @@ const Logo = styled(Heading)`
   font-size: ${props => (props.isLarge ? "95px" : "35px")};
   font-family: "Nunito", sans-serif;
   margin-bottom: 5px;
-  margin-top: ${props => (props.isLarge ? "35px" : "-10px")};
+  margin-top: ${props => (props.isLarge ? "35px" : "10px")};
   transition: 0.1s ease-out;
 `;
 

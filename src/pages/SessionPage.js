@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import ChatWindow from "../components/ChatWindow";
 import styled from "styled-components";
 import { Heading } from "grommet";
 import { getSession, subscribeToSocketActions } from "../api";
 import { setSession } from "../actions/actions";
-import MessageInput from "../components/MessageInput";
 
 const mapStateToProps = state => {
   return {
@@ -22,7 +21,6 @@ function SessionPage(props) {
   const { session, messages, location } = props;
   const pathname = location.pathname;
   const pathnameComponents = pathname.split("/").filter(item => item !== "");
-  const [showMessageInput, setShowMessageInput] = useState(false);
   useEffect(() => {
     if (pathnameComponents.length <= 3) {
       const sessionName = pathnameComponents.pop();

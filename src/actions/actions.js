@@ -14,3 +14,11 @@ export const setSession = session => ({
   type: ActionNames.SET_SESSION,
   payload: session
 });
+
+export const openModalAction = () => ({
+  type: ActionNames.OPEN_MODAL
+});
+
+export const closeModalAction = () => ({
+  type: ActionNames.CLOSE_MODAL
+});
