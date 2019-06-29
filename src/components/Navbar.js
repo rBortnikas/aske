@@ -1,13 +1,15 @@
-import { Link } from "react-router-dom";
-import { Box, Button, Heading } from "grommet";
-import { StatusUnknown } from "grommet-icons";
+import { Heading } from "grommet";
 import { routes } from "../pages/routes";
 import { withRouter } from "react-router-dom";
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { getSession, subscribeToSocketActions } from "../api";
-import { setSession } from "../actions/actions";
 import styled from "styled-components";
+
+const mapStateToProps = state => {
+  return {
+    sessionNameInputError: state.UI.sessionNameInputError
+  };
+};
 
 const Navigation = props => {
   const isLandingPage = props.location.pathname === routes.LANDING;
@@ -18,7 +20,7 @@ const Navigation = props => {
   }, [props.location.pathname]);
   return (
     <>
-      <BackroundImage isLarge={isLarge} />
+      <BackroundImage isLarge={isLarge} error={props.sessionNameInputError} />
       <Logo alignSelf="center" isLarge={isLarge}>
         aske
       </Logo>
@@ -26,7 +28,7 @@ const Navigation = props => {
   );
 };
 
-export default withRouter(Navigation); //can be done by checking redux state
+export default connect(mapStateToProps)(withRouter(Navigation)); //can be done by checking redux state
 
 const BackroundImage = props => {
   const [width, setWidth] = useState(window.innerWidth);
@@ -35,10 +37,6 @@ const BackroundImage = props => {
   useEffect(() => {
     let innerWidth = window.innerWidth;
     let innerHeight = 190;
-    // if (innerWidth > 420) {
-    //   // innerWidth = 800;
-    //   innerHeight = 370;
-    // }
     if (props.isLarge) {
       innerHeight = 435;
     }
@@ -48,7 +46,7 @@ const BackroundImage = props => {
 
   useEffect(() => {
     if (props.error) {
-      setHeight(345);
+      setHeight(475);
     }
   }, [props.error]);
 
@@ -86,25 +84,3 @@ const Logo = styled(Heading)`
   margin-top: ${props => (props.isLarge ? "35px" : "10px")};
   transition: 0.1s ease-out;
 `;
-
-const ErrorContainer = styled.div`
-  height: ${props => props.height}px;
-  transition: 0.1s ease-out;
-`;
-
-const Image = styled.img`
-  position: relative;
-  bottom: -50px;
-  right: 30%;
-  width: 160%;
-  margin-top: 100px;
-  opacity: 0.25;
-`;
-
-// const ImageContainer = styled.div`
-//   overflow: hidden;
-//   bottom: 0px;
-//   position: absolute;
-//   z-index: -2;
-//   width: 411px;
-// `;

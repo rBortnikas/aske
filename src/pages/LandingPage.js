@@ -1,13 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getSession, subscribeToSocketActions } from "../api";
-import { setSession } from "../actions/actions";
+import { getSession } from "../api";
+import {
+  setSession,
+  setSessionNameErrorAction,
+  clearSessionNameErrorAction
+} from "../actions/actions";
 import styled from "styled-components";
 
 import image from "C:/Users/Rokas/Desktop/chat_app/chat_app/src/peopleDancing.jpg";
 import { routes } from "../pages/routes";
-import { Box, ResponsiveContext, Heading, TextInput, Button } from "grommet";
+import { Box, Heading, TextInput, Button } from "grommet";
+
+const mapDispatchToProps = {
+  setSession,
+  setSessionNameErrorAction,
+  clearSessionNameErrorAction
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(LandingPage);
+
+const Raised = styled.div`
+  text-align: center;
+  letter-spacing: 1px;
+`;
 
 function LandingPage(props) {
   const [sessionName, setSessionName] = useState("");
@@ -17,18 +36,15 @@ function LandingPage(props) {
     if (sessionName) {
       getSession(sessionName)
         .then(miniSessionObject => {
-          // create active session object on serverside to quickly check
           miniSessionObject = JSON.parse(miniSessionObject);
-          // const { sessionId, sessionInfoText } = miniSessionObject;
-          // console.log("seshijon : ", sessionName, sessionId, sessionInfoText);
-          // subscribeToSocketActions(sessionId);
-          // props.setSession({ sessionName, sessionId, sessionInfoText });
           props.history.push({
             pathname: `${routes.SESSION}/${sessionName}`
           });
+          props.clearSessionNameErrorAction();
         })
         .catch(error => {
           console.log("Oopsie: ", error);
+          props.setSessionNameErrorAction();
           setError("no sessions named " + sessionName);
         });
     }
@@ -90,20 +106,6 @@ function LandingPage(props) {
     </>
   );
 }
-
-const mapDispatchToProps = {
-  setSession
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(LandingPage);
-
-const Raised = styled.div`
-  text-align: center;
-  letter-spacing: 1px;
-`;
 
 const ActionButton = styled(Button)`
   border: 3px solid white;

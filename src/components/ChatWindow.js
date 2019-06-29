@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Message from "./Message";
-import { socketSendMessage } from "../api";
 import styled from "styled-components";
-import { Button } from "grommet";
+import ActionButton from "./ActionButton";
 import MessageInput from "./MessageInput";
+import BottomBar from "./BottomBar";
 import { connect } from "react-redux";
 import { openModalAction, closeModalAction } from "../actions/actions";
 
@@ -19,30 +19,14 @@ const mapStateToProps = state => {
 };
 
 const ChatWindow = props => {
-  let [input, setInput] = useState("");
   let [messages, setMessages] = useState(props.messages || []);
 
   useEffect(() => {
     setMessages(sortMessages(props.messages));
   }, [props.messages]);
 
-  // function handleOnClick() {
-  //   if (input) {
-  //     socketSendMessage(input, props.sessionId);
-  //     setInput("");
-  //   }
-  // }
-
   function handleAsk() {
-    if (props.modalOpen) {
-      props.closeModalAction();
-    } else {
-      props.openModalAction();
-    }
-  }
-
-  function handleClose() {
-    props.closeModalAction();
+    props.openModalAction();
   }
 
   function sortMessages(messages) {
@@ -58,34 +42,24 @@ const ChatWindow = props => {
           <Message msg={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
-      {props.modalOpen && <MessageInput closeModalAction={closeModalAction} />}
-
-      {/* <textarea
-        placeholder="Enter your question"
-        value={input}
-        onChange={e => setInput(e.target.value)}
-        size="medium"
-      /> */}
-
-      {/* <button onClick={handleOnClick}>Ask a question</button> */}
-      <BottomBar>
-        {props.modalOpen && (
+      {props.modalOpen && (
+        <MessageInput
+          closeModalAction={props.closeModalAction}
+          sessionId={props.sessionId}
+        />
+      )}
+      <Space />
+      {!props.modalOpen && (
+        <BottomBar>
           <ActionButton
-            label="Close"
-            color="#FF6F6F"
+            label="Ask"
+            color="#686DFF"
             primary
             focusIndicator={false}
-            onClick={handleClose}
+            onClick={handleAsk}
           />
-        )}
-        <ActionButton
-          label="Ask"
-          color={props.modalOpen ? "#00DD95" : "#686DFF"}
-          primary
-          focusIndicator={false}
-          onClick={handleAsk}
-        />
-      </BottomBar>
+        </BottomBar>
+      )}
     </>
   );
 };
@@ -95,32 +69,6 @@ export default connect(
   mapDispatchToProps
 )(ChatWindow);
 
-const BottomBar = styled.div`
-  position: fixed;
-  display: flex;
-  width: 100vw;
-  justify-content: center;
-  bottom: 0px;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(255, 0, 0, 0),
-    rgba(255, 255, 255, 1)
-  );
-  padding: 20px 0 20px 0;
-  z-index: 41;
-`;
-
-const ActionButton = styled(Button)`
-  border: 3px solid white;
-  margin: 0 5px 0 5px;
-  padding: 12px 25px 12px 25px;
-  font-size: 25px;
-  box-shadow: none;
-  &:focus {
-    box-shadow: none;
-  }
-  &:hover {
-    box-shadow: none;
-  }
-  /* transition: 0.1s; */
+const Space = styled.div`
+  height: 60px;
 `;

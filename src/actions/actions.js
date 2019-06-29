@@ -22,3 +22,11 @@ export const openModalAction = () => ({
 export const closeModalAction = () => ({
   type: ActionNames.CLOSE_MODAL
 });
+
+export const setSessionNameErrorAction = () => ({
+  type: ActionNames.SET_SESSION_NAME_INPUT_ERROR
+});
+
+export const clearSessionNameErrorAction = () => ({
+  type: ActionNames.CLEAR_SESSION_NAME_INPUT_ERROR
+});

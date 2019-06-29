@@ -1,24 +1,69 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { getSession, subscribeToSocketActions } from "../api";
-import { setSession } from "../actions/actions";
+import { socketSendMessage } from "../api";
 import { TextArea } from "grommet";
+import BottomBar from "./BottomBar";
+import ActionButton from "./ActionButton";
 
-export default function MessageInput() {
+export default function MessageInput(props) {
+  const [message, setMessage] = useState("");
+
+  function handleOnChange(e) {
+    setMessage(e.target.value);
+  }
+
+  function handleAsk() {
+    socketSendMessage(message, props.sessionId);
+    props.closeModalAction();
+  }
+
+  function handleClose() {
+    props.closeModalAction();
+  }
+
   return (
-    <Wrapper>
-      <MessageTextArea placeholder="type here" />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <MessageTextArea
+          placeholder="say something"
+          value={message}
+          onChange={handleOnChange}
+        />
+      </Wrapper>
+      <BottomBar>
+        <ActionButton
+          label="Close"
+          color="#FF6F6F"
+          primary
+          focusIndicator={false}
+          onClick={handleClose}
+        />
+
+        <ActionButton
+          label="Ask"
+          color={props.modalOpen ? "#00DD95" : "#686DFF"}
+          primary
+          focusIndicator={false}
+          onClick={handleAsk}
+        />
+      </BottomBar>
+    </>
   );
 }
 
 const Wrapper = styled.div`
   z-index: 40;
   width: 100%;
+  /* height: 300px; */
   height: 100%;
   position: fixed;
-  top: 0px;
-  background-color: rgba(255, 255, 255, 0.6);
+  bottom: 0px;
+  /* background-color: rgba(255, 255, 255, 0.6); */
+  background-image: linear-gradient(
+    to bottom,
+    rgba(255, 0, 0, 0),
+    rgba(255, 255, 255, 1)
+  );
   display: flex;
   justify-content: center;
 `;
