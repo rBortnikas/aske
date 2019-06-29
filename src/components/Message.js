@@ -7,7 +7,14 @@ import { Like } from "grommet-icons";
 const Message = props => {
   const [upvoted, setUpvoted] = useState(false);
 
-  const { sessionId, messageId, author, messageText, upvotes } = props.msg;
+  const {
+    sessionId,
+    messageId,
+    author,
+    messageText,
+    upvotes,
+    isTop
+  } = props.msg;
 
   function onClick() {
     setUpvoted(true);
@@ -17,13 +24,12 @@ const Message = props => {
   return (
     <Wrapper>
       <MessageBubble>
-        {messageText}
-        {!upvoted && <span onClick={onClick}> - upvote</span>} - {upvotes}
-        {upvoted && <span> 👍</span>}
+        <UpvoteBubble onClick={onClick} upvoted={upvoted}>
+          <div>{upvotes}</div>
+          {isTop && <div>pts</div>}
+        </UpvoteBubble>
+        <MessageContent>{messageText}</MessageContent>
       </MessageBubble>
-      <UpvoteBubble>
-        8<Like color="white" size="small" />
-      </UpvoteBubble>
     </Wrapper>
   );
 };
@@ -33,21 +39,31 @@ export default Message;
 const MessageBubble = styled.div`
   border-radius: 15px;
   background-color: #ededff;
-  padding: 10px 15px 10px 15px;
+  display: flex;
 `;
 
 const UpvoteBubble = styled.div`
-  position: absolute;
-  border-radius: 15px;
-  padding: 5px;
-  background-color: #585863;
-  bottom: -16px;
-  right: 16px;
-  width: 30px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding: 7px;
+  background-color: ${props => (props.upvoted ? "#00DD95" : "#939393")};
+  width: 40px;
   z-index: 999;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Wrapper = styled.div`
   margin: 7px 14px 24px 14px;
-  position: relative;
+  transition: 1s ease-out;
+`;
+
+const MessageContent = styled.div`
+  width: 80%;
+  padding: 10px 15px 10px 15px;
+  display: flex;
+  align-items: center;
 `;
