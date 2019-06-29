@@ -72,7 +72,7 @@ const Shape = styled.div`
 `;
 
 const ShapeContainer = styled.div`
-  overflow: hidden;
+  overflow-x: hidden;
   width: ${props => props.width}px;
   position: absolute;
   z-index: -1;
@@ -101,10 +101,10 @@ const Image = styled.img`
   opacity: 0.25;
 `;
 
-const ImageContainer = styled.div`
-  overflow: hidden;
-  bottom: 0px;
-  position: absolute;
-  z-index: -2;
-  width: 411px;
-`;
+// const ImageContainer = styled.div`
+//   overflow: hidden;
+//   bottom: 0px;
+//   position: absolute;
+//   z-index: -2;
+//   width: 411px;
+// `;

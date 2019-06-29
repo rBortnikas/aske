@@ -7,14 +7,7 @@ import { Like } from "grommet-icons";
 const Message = props => {
   const [upvoted, setUpvoted] = useState(false);
 
-  const {
-    sessionId,
-    messageId,
-    author,
-    messageText,
-    upvotes,
-    isTop
-  } = props.msg;
+  const { sessionId, messageId, author, messageText, upvotes } = props.msg;
 
   function onClick() {
     setUpvoted(true);
@@ -26,7 +19,7 @@ const Message = props => {
       <MessageBubble>
         <UpvoteBubble onClick={onClick} upvoted={upvoted}>
           <div>{upvotes}</div>
-          {isTop && <div>pts</div>}
+          {props.isTop && <div>pts</div>}
         </UpvoteBubble>
         <MessageContent>{messageText}</MessageContent>
       </MessageBubble>
@@ -48,7 +41,7 @@ const UpvoteBubble = styled.div`
   padding: 7px;
   background-color: ${props => (props.upvoted ? "#00DD95" : "#939393")};
   width: 40px;
-  z-index: 999;
+  z-index: 20;
   color: white;
   display: flex;
   flex-direction: column;
