@@ -9,6 +9,9 @@ import { routes } from "../pages/routes";
 
 import { Grommet, Box, ResponsiveContext } from "grommet";
 import { theme } from "../theme";
+import styled from "styled-components";
+
+import image from "C:/Users/Rokas/Desktop/chat_app/chat_app/src/peopleDancing.jpg";
 
 function App() {
   return (
@@ -38,6 +41,9 @@ function App() {
                   </Switch>
                 </Box>
               </Box>
+              <ImageContainer>
+                <Image src={image} />
+              </ImageContainer>
             </Box>
           </BrowserRouter>
         )}
@@ -47,3 +53,20 @@ function App() {
 }
 
 export default App;
+
+const Image = styled.img`
+  position: relative;
+  bottom: -50px;
+  right: 30%;
+  width: 160%;
+  margin-top: 100px;
+  opacity: 0.25;
+`;
+
+const ImageContainer = styled.div`
+  overflow: hidden;
+  bottom: 0px;
+  position: fixed;
+  z-index: -2;
+  width: 411px;
+`;

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { createSession } from "../api";
+import ActionButton from "../components/ActionButton";
 import styled from "styled-components";
-import { Box, Button, Heading, TextInput } from "grommet";
+import { Heading, TextInput } from "grommet";
 
 function CreateSessionPage() {
   let [sessionName, setSessionName] = useState("");
@@ -22,13 +23,8 @@ function CreateSessionPage() {
       {!sessionCreated && (
         <>
           <Heading level="2" alignSelf="center">
-            Create Session
+            Create a question room
           </Heading>
-          {/* <input
-            value={sessionName}
-            onChange={e => setSessionName(e.target.value)}
-            placeholder="Enter session name"
-          /> */}
 
           <InputField
             focusIndicator={false}
@@ -59,8 +55,16 @@ function CreateSessionPage() {
       )}
       {sessionCreated && (
         <>
-          <h4>Participants may now join the session @</h4>
-          <h3>www.somecoolname.com/{sessionName}</h3>
+          <h4>People may now join the room by visiting</h4>
+          <h3>
+            <a href={`http://quarrelsome-frog.surge.sh`}>www.aske.ly</a>
+          </h3>
+          <h4>or directly by</h4>
+          <h3>
+            <a href={`http://quarrelsome-frog.surge.sh/session/${sessionName}`}>
+              www.aske.ly/{sessionName}
+            </a>
+          </h3>
         </>
       )}
     </Container>
@@ -78,17 +82,4 @@ const InputField = styled(TextInput)`
   border: 2px solid #08126c;
   margin-bottom: 16px;
   margin-top: 10px;
-`;
-
-const ActionButton = styled(Button)`
-  border: 3px solid white;
-  padding: 12px 25px 12px 25px;
-  font-size: 25px;
-  box-shadow: none;
-  &:focus {
-    box-shadow: none;
-  }
-  &:hover {
-    box-shadow: none;
-  }
 `;

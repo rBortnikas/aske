@@ -6,6 +6,7 @@ import MessageInput from "./MessageInput";
 import BottomBar from "./BottomBar";
 import { connect } from "react-redux";
 import { openModalAction, closeModalAction } from "../actions/actions";
+import { Heading } from "grommet";
 
 const mapDispatchToProps = {
   openModalAction,
@@ -37,7 +38,11 @@ const ChatWindow = props => {
   return (
     <>
       <>
-        {props.messages.length === 0 && <h3>Loading messages...</h3>}
+        {props.messages.length === 0 && (
+          <Heading level="3" margin="xlarge" textAlign="center">
+            No questions here yet, be the first one to ask!
+          </Heading>
+        )}
         {messages.map((msg, idx) => (
           <Message msg={msg} key={msg.messageId} isTop={idx === 0} />
         ))}

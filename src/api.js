@@ -3,18 +3,13 @@ import { store } from "./index";
 
 import { updateMessages, loadMessages } from "./actions/actions";
 
-// const socket = openSocket("http://localhost:8888", {
-//   upgrade: false,
-//   transports: ["websocket"],
-//   query: {
-//     token: "testas"
-//   }
-// }); // performance improvement?
+const env = "http://9b224820.ngrok.io";
+// const env = "http://localhost:8888"
 let socket;
 let currentSessionId;
 function openUniqueSocket(sessionId) {
   currentSessionId = sessionId;
-  socket = openSocket("http://localhost:8888", {
+  socket = openSocket(`${env}`, {
     upgrade: false,
     transports: ["websocket"],
     query: {
@@ -55,7 +50,7 @@ export function socketUpvoteMessage(messageId, upvoterId) {
 }
 
 export function createSession(sessionName, sessionInfoText) {
-  const url = `http://localhost:8888/api/createSession?sessionName=${sessionName}&sessionInfoText=${sessionInfoText}`;
+  const url = `${env}/api/createSession?sessionName=${sessionName}&sessionInfoText=${sessionInfoText}`;
   const params = {
     method: "POST"
   };
@@ -67,7 +62,7 @@ export function createSession(sessionName, sessionInfoText) {
 
 // gets sessionId which is used by sockets
 export function getSession(sessionName) {
-  const url = "http://localhost:8888/api/getSession?sessionName=" + sessionName;
+  const url = `${env}/api/getSession?sessionName=${sessionName}`;
   const params = {
     method: "GET"
   };

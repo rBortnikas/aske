@@ -41,7 +41,7 @@ function SessionPage(props) {
   }, []);
 
   return (
-    <div>
+    <Wrapper>
       {!error ? (
         <>
           <SessionInfoText>
@@ -65,7 +65,7 @@ function SessionPage(props) {
           </Heading>
         </>
       )}
-    </div>
+    </Wrapper>
   );
 }
 
@@ -77,4 +77,8 @@ export default connect(
 const SessionInfoText = styled.div`
   margin: 0 20px 0 20px;
   text-align: center;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
 `;
