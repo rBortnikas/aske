@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import { socketUpvoteMessage } from "../api";
 import styled from "styled-components";
-import { Box, ResponsiveContext, Text, Icon, Stack } from "grommet";
-import { Like } from "grommet-icons";
 
-const Message = props => {
+interface MessageProps {
+  msg: any;
+  isTop: boolean;
+}
+
+interface UpvoteBubbleProps {
+  upvoted: boolean;
+}
+
+const Message = (props: MessageProps) => {
   const [upvoted, setUpvoted] = useState(false);
 
-  const { sessionId, messageId, author, messageText, upvotes } = props.msg;
+  const { messageId, author, messageText, upvotes } = props.msg;
 
   function onClick() {
     setUpvoted(true);
@@ -39,7 +46,7 @@ const UpvoteBubble = styled.div`
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   padding: 7px;
-  background-color: ${props => (props.upvoted ? "#00DD95" : "#939393")};
+  background-color: ${(props: UpvoteBubbleProps) => (props.upvoted ? "#00DD95" : "#939393")};
   width: 40px;
   z-index: 20;
   color: white;

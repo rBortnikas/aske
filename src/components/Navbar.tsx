@@ -1,36 +1,61 @@
-import { Heading } from "grommet";
 import { routes } from "../pages/routes";
-import { withRouter } from "react-router-dom";
+import { withRouter, RouteProps } from "react-router";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { ReduxState } from "../interfaces/store";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: ReduxState) => {
   return {
     sessionNameInputError: state.UI.sessionNameInputError
   };
 };
 
-const Navigation = props => {
-  const isLandingPage = props.location.pathname === routes.LANDING;
+type NavigationProps = ReturnType<typeof mapStateToProps> &
+  RouteProps &
+  ShapeProps &
+  ShapeContainerProps;
+
+interface BackgroundImageProps {
+  isLarge: boolean;
+  error: boolean;
+}
+
+interface ShapeProps {
+  width: number;
+  height: number;
+}
+
+interface ShapeContainerProps {
+  width: number;
+}
+
+interface LogoProps {
+  isLarge: boolean;
+}
+
+const Navigation = (props: NavigationProps) => {
+  const isLandingPage = props.location
+    ? props.location.pathname === routes.LANDING
+    : false;
   const [isLarge, setIsLarge] = useState(isLandingPage);
   useEffect(() => {
-    setIsLarge(props.location.pathname === routes.LANDING);
-    console.log(props.location.pathname);
-  }, [props.location.pathname]);
+    setIsLarge(
+      props.location ? props.location.pathname === routes.LANDING : false
+    );
+  }, [props.location]);
   return (
     <>
       <BackroundImage isLarge={isLarge} error={props.sessionNameInputError} />
-      <Logo alignSelf="center" isLarge={isLarge}>
-        aske
-      </Logo>
+      <Logo isLarge={isLarge}>aske</Logo>
     </>
   );
 };
 
-export default connect(mapStateToProps)(withRouter(Navigation)); //can be done by checking redux state
+export default
+  withRouter(connect(mapStateToProps, null)(Navigation) as any); //can be done by checking redux state
 
-const BackroundImage = props => {
+const BackroundImage = (props: BackgroundImageProps) => {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(30);
 
@@ -58,10 +83,10 @@ const BackroundImage = props => {
 };
 
 const Shape = styled.div`
-  width: ${props => props.width + 100}px;
+  width:  ${(props: ShapeProps) => props.width + 100}px;
   right: 50px;
   background-color: #08126c;
-  height: ${props => props.height}px;
+  height: ${(props: ShapeProps) => props.height}px;
   top: -130px;
   position: relative;
   border-bottom-left-radius: 120px;
@@ -71,16 +96,16 @@ const Shape = styled.div`
 
 const ShapeContainer = styled.div`
   overflow-x: hidden;
-  width: ${props => props.width}px;
+  width: ${(props: ShapeContainerProps) => props.width}px;
   position: absolute;
   z-index: -1;
 `;
 
-const Logo = styled(Heading)`
+const Logo = styled.h1`
   color: white;
-  font-size: ${props => (props.isLarge ? "95px" : "35px")};
+  font-size: ${(props: LogoProps) => (props.isLarge ? "95px" : "35px")};
   font-family: "Nunito", sans-serif;
   margin-bottom: 5px;
-  margin-top: ${props => (props.isLarge ? "35px" : "10px")};
+  margin-top: ${(props: LogoProps) => (props.isLarge ? "35px" : "10px")};
   transition: 0.1s ease-out;
 `;

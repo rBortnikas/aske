@@ -7,7 +7,7 @@ import CreateSessionPage from "../pages/CreateSessionPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { routes } from "../pages/routes";
 
-import { Grommet, Box, ResponsiveContext } from "grommet";
+import { Grommet, Box } from "grommet";
 import { theme } from "../theme";
 import styled from "styled-components";
 
@@ -16,38 +16,20 @@ import image from "C:/Users/Rokas/Desktop/chat_app/chat_app/src/peopleDancing.jp
 function App() {
   return (
     <Grommet theme={theme}>
-      <ResponsiveContext.Consumer>
-        {size => (
-          <BrowserRouter>
-            <Box fill>
-              <Navbar />
-              <Box flex direction="row" overflow={{ horizontal: "hidden" }}>
-                <Box flex align="center" jusitfy="center">
-                  <Switch>
-                    <Route
-                      exact
-                      path={routes.LANDING}
-                      component={LandingPage}
-                    />
-                    <Route
-                      path={routes.CREATE_SESSION}
-                      component={CreateSessionPage}
-                    />
-                    <Route
-                      path={routes.SPECIFIC_SESSION}
-                      component={SessionPage}
-                    />
-                    <Route path={routes.ERROR} component={NotFoundPage} />
-                  </Switch>
-                </Box>
-              </Box>
-              <ImageContainer>
-                <Image src={image} />
-              </ImageContainer>
-            </Box>
-          </BrowserRouter>
-        )}
-      </ResponsiveContext.Consumer>
+      <BrowserRouter>
+        <Box fill flex align="center" jusitfy="center">
+          <Navbar />
+          <Switch>
+            <Route exact path={routes.LANDING} component={LandingPage} />
+            <Route path={routes.CREATE_SESSION} component={CreateSessionPage} />
+            <Route path={routes.SPECIFIC_SESSION} component={SessionPage} />
+            <Route path={routes.ERROR} component={NotFoundPage} />
+          </Switch>
+        </Box>
+        <ImageContainer>
+          <Image src={image} />
+        </ImageContainer>
+      </BrowserRouter>
     </Grommet>
   );
 }

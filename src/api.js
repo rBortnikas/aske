@@ -3,8 +3,8 @@ import { store } from "./index";
 
 import { updateMessages, loadMessages } from "./actions/actions";
 
-const env = "http://9b224820.ngrok.io";
-// const env = "http://localhost:8888"
+// const env = "http://9b224820.ngrok.io";
+const env = "http://localhost:8888";
 let socket;
 let currentSessionId;
 function openUniqueSocket(sessionId) {
