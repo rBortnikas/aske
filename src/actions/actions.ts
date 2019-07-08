@@ -1,16 +1,16 @@
 import ActionNames from "./actionNames";
 
-export const updateMessages = messages => ({
+export const updateMessages = (messages: string[]) => ({
   type: ActionNames.UPDATE_MESSAGES,
   payload: messages
 });
 
-export const loadMessages = messages => ({
+export const loadMessages = (messages: string[]) => ({
   type: ActionNames.LOAD_MESSAGES,
   payload: messages
 });
 
-export const setSession = session => ({
+export const setSession = (session: any) => ({
   type: ActionNames.SET_SESSION,
   payload: session
 });

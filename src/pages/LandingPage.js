@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { getSession } from "../api";
 import {
-  setSession,
   setSessionNameErrorAction,
   clearSessionNameErrorAction
 } from "../actions/actions";
@@ -11,7 +10,6 @@ import { routes } from "../pages/routes";
 import { Box, Heading, TextInput, Button } from "grommet";
 
 const mapDispatchToProps = {
-  setSession,
   setSessionNameErrorAction,
   clearSessionNameErrorAction
 };
@@ -43,7 +41,7 @@ function LandingPage(props) {
         .catch(error => {
           console.log("Oopsie: ", error);
           props.setSessionNameErrorAction();
-          setError("no sessions named " + sessionName);
+          setError("no rooms named " + sessionName);
         });
     }
   }
@@ -67,7 +65,7 @@ function LandingPage(props) {
         Q&A app for any event
       </Heading>
       <Heading level="2" color="white">
-        Join session
+        Join room
       </Heading>
       <ErrorContainer height={error ? 40 : 0}>
         <Heading level="5" color="#FF6961">
@@ -78,7 +76,7 @@ function LandingPage(props) {
         focusIndicator={false}
         value={sessionName}
         onChange={handleSessionNameInput}
-        placeholder="enter session ID"
+        placeholder="enter room ID"
         size="large"
       />
       <Box pad="small" />

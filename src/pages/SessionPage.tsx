@@ -5,8 +5,12 @@ import styled from "styled-components";
 import { Heading } from "grommet";
 import { getSession, subscribeToSocketActions } from "../api";
 import { setSession } from "../actions/actions";
+import { ReduxState } from "../interfaces/store/index"
+import { RouteProps } from "react-router";
 
-const mapStateToProps = state => {
+// type Props = RouteProps & ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>;
+
+const mapStateToProps = (state: ReduxState) => {
   return {
     messages: state.messages,
     session: state.session
@@ -17,21 +21,22 @@ const mapDispatchToProps = {
   setSession
 };
 
-function SessionPage(props) {
+function SessionPage(props: any) {
   const [error, setError] = useState("");
-  const { session, messages, location } = props;
-  const pathname = location.pathname;
-  const pathnameComponents = pathname.split("/").filter(item => item !== "");
+  const { session, messages, location, setSession } = props;
+  const pathname = location && location.pathname;
+  const pathnameComponents = pathname && pathname.split("/").filter((item: string) => item !== "");
   useEffect(() => {
-    if (pathnameComponents.length <= 3) {
+    if (pathnameComponents && pathnameComponents.length <= 3) {
       const sessionName = pathnameComponents.pop();
 
       getSession(sessionName)
         .then(miniSessionObject => {
-          miniSessionObject = JSON.parse(miniSessionObject);
+          miniSessionObject = JSON.parse(miniSessionObject as any);
+          // @ts-ignore
           const { sessionId, sessionInfoText } = miniSessionObject;
           subscribeToSocketActions(sessionId);
-          props.setSession({ sessionName, sessionId, sessionInfoText });
+          setSession({ sessionName, sessionId, sessionInfoText });
         })
         .catch(error => {
           console.log("Oopsie: ", error);
@@ -56,15 +61,15 @@ function SessionPage(props) {
           )}
         </>
       ) : (
-        <>
-          <Heading level="2" textAlign="center" margin="xlarge">
-            No such rooms!
+          <>
+            <Heading level="2" textAlign="center" margin="xlarge">
+              No such rooms!
           </Heading>
-          <Heading level="5" textAlign="center">
-            You might have made a typo
+            <Heading level="5" textAlign="center">
+              You might have made a typo
           </Heading>
-        </>
-      )}
+          </>
+        )}
     </Wrapper>
   );
 }

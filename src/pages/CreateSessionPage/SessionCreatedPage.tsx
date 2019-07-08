@@ -1,24 +1,33 @@
+import React from "react";
+import styled from "styled-components";
+import { TextInput } from "grommet";
+import ActionButton from "../../components/ActionButton";
+import { routes } from "../routes";
+import { Link } from "react-router-dom";
 
-interface
+interface Props {
+  sessionName: string;
+}
 
-function SessionCreatedPage(props) {
+function SessionCreatedPage(props: Props) {
+  const { sessionName } = props;
   return (
     <>
-      <SmallerTitle>People may now join the room by visiting</SmallerTitle>
-      <h3>
-        <a href={`http://quarrelsome-frog.surge.sh`}>www.aske.ly</a>
-      </h3>
-      <h4>or directly by</h4>
-      <h3>
-        <a href={`http://quarrelsome-frog.surge.sh/session/${sessionName}`}>
-          www.aske.ly/{sessionName}
-        </a>
-      </h3>
+      <Title>People may now join the room by visiting</Title>
+      <h2>
+        <Link to="">www.aske.ly</Link>
+      </h2>
+      <h3>and entering</h3>
+      <h2>{sessionName}</h2>
+      <h3>or directly by</h3>
+      <h2>
+        <Link to={`${routes.SESSION}/${sessionName}`}>www.aske.ly/{sessionName}</Link>
+      </h2>
       <h3>Afraid of forgetting? Send these details to yourself</h3>
       <InputField
         focusIndicator={false}
-        value={sessionInfoText}
-        onChange={e => { }}
+        // value={sessionInfoText}
+        // onChange={e => { }}
         placeholder="your@email.com"
         size="large"
       />
@@ -34,3 +43,14 @@ function SessionCreatedPage(props) {
 }
 
 export default SessionCreatedPage;
+
+const Title = styled.h3`
+  margin-top: 40px;
+`;
+
+const InputField = styled(TextInput)`
+  background-color: white;
+  border: 2px solid #08126c;
+  margin-bottom: 16px;
+  margin-top: 10px;
+`;
