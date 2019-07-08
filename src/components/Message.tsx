@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { socketUpvoteMessage } from "../api";
+import { socketUpvoteMessage, socketDownvoteMessage } from "../api";
 import styled from "styled-components";
 
 interface MessageProps {
@@ -17,8 +17,13 @@ const Message = (props: MessageProps) => {
   const { messageId, author, messageText, upvotes } = props.msg;
 
   function onClick() {
-    setUpvoted(true);
-    socketUpvoteMessage(messageId, author);
+    if (upvoted) {
+      setUpvoted(false);
+      socketDownvoteMessage(messageId, author);
+    } else {
+      setUpvoted(true);
+      socketUpvoteMessage(messageId, author); // this allows to remove other votes than yours if page is refreshed - bad
+    }
   }
 
   return (

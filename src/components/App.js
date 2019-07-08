@@ -1,9 +1,9 @@
 import React from "react";
-import Navbar from "./Navbar";
+import Header from "./Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import SessionPage from "../pages/SessionPage";
-import CreateSessionPage from "../pages/CreateSessionPage";
+import CreateSessionPage from "../pages/CreateSessionPage/CreateSessionPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { routes } from "../pages/routes";
 
@@ -18,7 +18,7 @@ function App() {
     <Grommet theme={theme}>
       <BrowserRouter>
         <Box fill flex align="center" jusitfy="center">
-          <Navbar />
+          <Header />
           <Switch>
             <Route exact path={routes.LANDING} component={LandingPage} />
             <Route path={routes.CREATE_SESSION} component={CreateSessionPage} />

@@ -49,6 +49,11 @@ export function socketUpvoteMessage(messageId, upvoterId) {
   socket.emit("UPVOTE", upvoteObject);
 }
 
+export function socketDownvoteMessage(messageId, upvoterId) {
+  const upvoteObject = { messageId, upvoterId };
+  socket.emit("DOWNVOTE", upvoteObject);
+}
+
 export function createSession(sessionName, sessionInfoText) {
   const url = `${env}/api/createSession?sessionName=${sessionName}&sessionInfoText=${sessionInfoText}`;
   const params = {

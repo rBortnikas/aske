@@ -45,11 +45,11 @@ function SessionPage(props) {
       {!error ? (
         <>
           <SessionInfoText>
-            <Heading level="3">
+            <SessionHeading>
               {session.sessionInfoText
                 ? session.sessionInfoText
                 : session.sessionName}
-            </Heading>
+            </SessionHeading>
           </SessionInfoText>
           {session.sessionId && (
             <ChatWindow messages={messages} sessionId={session.sessionId} />
@@ -81,4 +81,8 @@ const SessionInfoText = styled.div`
 
 const Wrapper = styled.div`
   width: 100%;
+`;
+
+const SessionHeading = styled.h3`
+  margin-top: 30px;
 `;

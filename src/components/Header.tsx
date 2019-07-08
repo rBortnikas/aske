@@ -11,7 +11,7 @@ const mapStateToProps = (state: ReduxState) => {
   };
 };
 
-type NavigationProps = ReturnType<typeof mapStateToProps> &
+type HeaderProps = ReturnType<typeof mapStateToProps> &
   RouteProps &
   ShapeProps &
   ShapeContainerProps;
@@ -34,7 +34,7 @@ interface LogoProps {
   isLarge: boolean;
 }
 
-const Navigation = (props: NavigationProps) => {
+const Header = (props: HeaderProps) => {
   const isLandingPage = props.location
     ? props.location.pathname === routes.LANDING
     : false;
@@ -46,16 +46,16 @@ const Navigation = (props: NavigationProps) => {
   }, [props.location]);
   return (
     <>
-      <BackroundImage isLarge={isLarge} error={props.sessionNameInputError} />
+      <BackgroundImage isLarge={isLarge} error={props.sessionNameInputError} />
       <Logo isLarge={isLarge}>aske</Logo>
     </>
   );
 };
 
 export default
-  withRouter(connect(mapStateToProps, null)(Navigation) as any); //can be done by checking redux state
+  withRouter(connect(mapStateToProps, null)(Header) as any); //can be done by checking redux state
 
-const BackroundImage = (props: BackgroundImageProps) => {
+const BackgroundImage = (props: BackgroundImageProps) => {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(30);
 
@@ -63,7 +63,7 @@ const BackroundImage = (props: BackgroundImageProps) => {
     let innerWidth = window.innerWidth;
     let innerHeight = 190;
     if (props.isLarge) {
-      innerHeight = 435;
+      innerHeight = 415;
     }
     setHeight(innerHeight);
     setWidth(innerWidth);
@@ -71,7 +71,7 @@ const BackroundImage = (props: BackgroundImageProps) => {
 
   useEffect(() => {
     if (props.error) {
-      setHeight(475);
+      setHeight(460);
     }
   }, [props.error]);
 
@@ -106,6 +106,6 @@ const Logo = styled.h1`
   font-size: ${(props: LogoProps) => (props.isLarge ? "95px" : "35px")};
   font-family: "Nunito", sans-serif;
   margin-bottom: 5px;
-  margin-top: ${(props: LogoProps) => (props.isLarge ? "35px" : "10px")};
+  margin-top: ${(props: LogoProps) => (props.isLarge ? "35px" : "20px")};
   transition: 0.1s ease-out;
 `;
