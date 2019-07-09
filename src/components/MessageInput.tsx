@@ -4,10 +4,13 @@ import { socketSendMessage } from "../api";
 import { TextArea } from "grommet";
 import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
+import { closeModalAction } from "../actions/actions";
 
-interface Props {}
+interface Props {
+  sessionId: string;
+}
 
-export default function MessageInput(props: any) {
+export default function MessageInput(props: Props) {
   const [message, setMessage] = useState("");
 
   function handleOnChange(e: any) {
@@ -16,11 +19,11 @@ export default function MessageInput(props: any) {
 
   function handleAsk() {
     socketSendMessage(message, props.sessionId);
-    props.closeModalAction();
+    closeModalAction();
   }
 
   function handleClose() {
-    props.closeModalAction();
+    closeModalAction();
   }
 
   return (
@@ -43,7 +46,7 @@ export default function MessageInput(props: any) {
 
         <ActionButton
           label="Ask"
-          color={props.modalOpen ? "#00DD95" : "#686DFF"}
+          color="#686DFF"
           primary
           focusIndicator={false}
           onClick={handleAsk}

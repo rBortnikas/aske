@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from "react";
-import Message from "./Message";
+import MessageBox from "./MessageBox";
 import styled from "styled-components";
 import ActionButton from "./ActionButton";
 import MessageInput from "./MessageInput";
 import BottomBar from "./BottomBar";
 import { connect } from "react-redux";
-import { openModalAction, closeModalAction } from "../actions/actions";
+import { openModalAction } from "../actions/actions";
 import { Heading } from "grommet";
+import { ReduxState } from "../interfaces/store/index";
+import { Message } from "../interfaces/message/index";
 
-const mapStateToProps = state => {
+interface OwnProps {
+  messages: Message[];
+  sessionId: string;
+}
+
+type Props = ReturnType<typeof mapStateToProps> & OwnProps;
+
+const mapStateToProps = (state: ReduxState) => {
   return {
     modalOpen: state.UI.modalOpen
   };
 };
 
-const ChatWindow = props => {
+function ChatWindow(props: Props) {
   let [messages, setMessages] = useState(props.messages || []);
 
   useEffect(() => {
+    console.log(props.messages[0]);
     setMessages(sortMessages(props.messages));
   }, [props.messages]);
 
@@ -25,7 +35,7 @@ const ChatWindow = props => {
     openModalAction();
   }
 
-  function sortMessages(messages) {
+  function sortMessages(messages: Message[]) {
     messages.sort((a, b) => b.upvotes - a.upvotes);
     return messages;
   }
@@ -39,15 +49,10 @@ const ChatWindow = props => {
           </Heading>
         )}
         {messages.map((msg, idx) => (
-          <Message msg={msg} key={msg.messageId} isTop={idx === 0} />
+          <MessageBox msg={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
-      {props.modalOpen && (
-        <MessageInput
-          closeModalAction={closeModalAction}
-          sessionId={props.sessionId}
-        />
-      )}
+      {props.modalOpen && <MessageInput sessionId={props.sessionId} />}
       <Space />
       {!props.modalOpen && (
         <BottomBar>
@@ -62,7 +67,7 @@ const ChatWindow = props => {
       )}
     </>
   );
-};
+}
 
 export default connect(mapStateToProps)(ChatWindow);
 

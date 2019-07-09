@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { socketUpvoteMessage, socketDownvoteMessage } from "../api";
 import styled from "styled-components";
 
-interface MessageProps {
+interface MessageBoxProps {
   msg: any;
   isTop: boolean;
 }
@@ -11,7 +11,7 @@ interface UpvoteBubbleProps {
   upvoted: boolean;
 }
 
-const Message = (props: MessageProps) => {
+export default function MessageBox(props: MessageBoxProps) {
   const [upvoted, setUpvoted] = useState(false);
 
   const { messageId, author, messageText, upvotes } = props.msg;
@@ -37,9 +37,7 @@ const Message = (props: MessageProps) => {
       </MessageBubble>
     </Wrapper>
   );
-};
-
-export default Message;
+}
 
 const MessageBubble = styled.div`
   border-radius: 15px;
@@ -51,7 +49,8 @@ const UpvoteBubble = styled.div`
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   padding: 7px;
-  background-color: ${(props: UpvoteBubbleProps) => (props.upvoted ? "#00DD95" : "#939393")};
+  background-color: ${(props: UpvoteBubbleProps) =>
+    props.upvoted ? "#00DD95" : "#939393"};
   width: 40px;
   z-index: 20;
   color: white;
