@@ -6,12 +6,10 @@ import SessionPage from "../pages/SessionPage";
 import CreateSessionPage from "../pages/CreateSessionPage/CreateSessionPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import { routes } from "../pages/routes";
-
 import { Grommet, Box } from "grommet";
 import { theme } from "../theme";
 import styled from "styled-components";
-
-import image from "C:/Users/Rokas/Desktop/chat_app/chat_app/src/peopleDancing.jpg";
+import image from "../peopleDancing.jpg";
 
 function App() {
   return (
