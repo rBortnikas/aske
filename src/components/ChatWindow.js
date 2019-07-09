@@ -8,11 +8,6 @@ import { connect } from "react-redux";
 import { openModalAction, closeModalAction } from "../actions/actions";
 import { Heading } from "grommet";
 
-const mapDispatchToProps = {
-  openModalAction,
-  closeModalAction
-};
-
 const mapStateToProps = state => {
   return {
     modalOpen: state.UI.modalOpen
@@ -27,7 +22,7 @@ const ChatWindow = props => {
   }, [props.messages]);
 
   function handleAsk() {
-    props.openModalAction();
+    openModalAction();
   }
 
   function sortMessages(messages) {
@@ -49,7 +44,7 @@ const ChatWindow = props => {
       </>
       {props.modalOpen && (
         <MessageInput
-          closeModalAction={props.closeModalAction}
+          closeModalAction={closeModalAction}
           sessionId={props.sessionId}
         />
       )}
@@ -69,10 +64,7 @@ const ChatWindow = props => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatWindow);
+export default connect(mapStateToProps)(ChatWindow);
 
 const Space = styled.div`
   height: 60px;

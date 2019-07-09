@@ -27,7 +27,7 @@ export function subscribeToSocketActions(sessionId) {
     openUniqueSocket(sessionId);
   }
   socket.on("LOAD_MESSAGES", messages => {
-    store.dispatch(loadMessages(messages));
+    loadMessages(messages);
   });
 
   socket.on("MESSAGE", message => {

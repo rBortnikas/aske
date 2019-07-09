@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
 import { getSession } from "../api";
 import {
   setSessionNameErrorAction,
@@ -9,22 +8,12 @@ import styled from "styled-components";
 import { routes } from "../pages/routes";
 import { Box, Heading, TextInput, Button } from "grommet";
 
-const mapDispatchToProps = {
-  setSessionNameErrorAction,
-  clearSessionNameErrorAction
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(LandingPage);
-
 const Wrapper = styled.div`
   text-align: center;
   letter-spacing: 1px;
 `;
 
-function LandingPage(props) {
+export default function LandingPage(props) {
   const [sessionName, setSessionName] = useState("");
   const [error, setError] = useState("");
 
@@ -36,11 +25,11 @@ function LandingPage(props) {
           props.history.push({
             pathname: `${routes.SESSION}/${sessionName}`
           });
-          props.clearSessionNameErrorAction();
+          clearSessionNameErrorAction();
         })
         .catch(error => {
           console.log("Oopsie: ", error);
-          props.setSessionNameErrorAction();
+          setSessionNameErrorAction();
           setError("no rooms named " + sessionName);
         });
     }
