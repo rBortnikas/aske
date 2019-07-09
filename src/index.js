@@ -4,8 +4,10 @@ import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import configureStore from "./configureStore";
+import { setGlobalStore } from "./interfaces/store/index";
 
 export const store = configureStore();
+setGlobalStore(store.dispatch, store.getState);
 
 ReactDOM.render(
   <Provider store={store}>
