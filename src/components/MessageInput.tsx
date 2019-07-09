@@ -5,10 +5,12 @@ import { TextArea } from "grommet";
 import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
 
-export default function MessageInput(props) {
+interface Props {}
+
+export default function MessageInput(props: any) {
   const [message, setMessage] = useState("");
 
-  function handleOnChange(e) {
+  function handleOnChange(e: any) {
     setMessage(e.target.value);
   }
 
