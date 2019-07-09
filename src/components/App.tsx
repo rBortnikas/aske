@@ -11,11 +11,11 @@ import { theme } from "../theme";
 import styled from "styled-components";
 import image from "../peopleDancing.jpg";
 
-function App() {
+export default function App() {
   return (
     <Grommet theme={theme}>
       <BrowserRouter>
-        <Box fill flex align="center" jusitfy="center">
+        <Box fill flex align="center">
           <Header />
           <Switch>
             <Route exact path={routes.LANDING} component={LandingPage} />
@@ -31,8 +31,6 @@ function App() {
     </Grommet>
   );
 }
-
-export default App;
 
 const Image = styled.img`
   position: relative;

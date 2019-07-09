@@ -5,23 +5,26 @@ import {
   clearSessionNameErrorAction
 } from "../actions/actions";
 import styled from "styled-components";
-import { routes } from "../pages/routes";
+import { routes } from "./routes";
 import { Box, Heading, TextInput, Button } from "grommet";
+import { Session } from "../interfaces/session/index";
 
-const Wrapper = styled.div`
-  text-align: center;
-  letter-spacing: 1px;
-`;
+interface Props {}
 
-export default function LandingPage(props) {
+interface ErrorContainerProps {
+  height: number;
+}
+
+export default function LandingPage(props: any) {
   const [sessionName, setSessionName] = useState("");
   const [error, setError] = useState("");
 
   function handleOnClick() {
     if (sessionName) {
       getSession(sessionName)
-        .then(miniSessionObject => {
-          miniSessionObject = JSON.parse(miniSessionObject);
+        .then((session: any) => {
+          console.log(session);
+          session = JSON.parse(session);
           props.history.push({
             pathname: `${routes.SESSION}/${sessionName}`
           });
@@ -35,7 +38,7 @@ export default function LandingPage(props) {
     }
   }
 
-  function handleSessionNameInput(e) {
+  function handleSessionNameInput(e: any) {
     const name = e.target.value;
     if (name.length <= 15) {
       setSessionName(name);
@@ -105,6 +108,11 @@ const SessionInput = styled(TextInput)`
 `;
 
 const ErrorContainer = styled.div`
-  height: ${props => props.height}px;
+  height: ${(props: ErrorContainerProps) => props.height}px;
   transition: 0.1s ease-out;
+`;
+
+const Wrapper = styled.div`
+  text-align: center;
+  letter-spacing: 1px;
 `;

@@ -5,7 +5,7 @@ import SessionCreatedPage from "./SessionCreatedPage";
 import styled from "styled-components";
 import { TextInput } from "grommet";
 
-function CreateSessionPage() {
+export default function CreateSessionPage() {
   let [sessionName, setSessionName] = useState("");
   let [sessionInfoText, setSessionInfoText] = useState("");
   let [sessionCreated, setSessionCreated] = useState(false);
@@ -23,7 +23,9 @@ function CreateSessionPage() {
 
   return (
     <Container>
-      {(sessionCreated && !sessionCreationError) ? (<SessionCreatedPage sessionName={sessionName} />) : (
+      {sessionCreated && !sessionCreationError ? (
+        <SessionCreatedPage sessionName={sessionName} />
+      ) : (
         <>
           <Title>Create a question room</Title>
 
@@ -59,8 +61,6 @@ function CreateSessionPage() {
     </Container>
   );
 }
-
-export default CreateSessionPage;
 
 const Container = styled.div`
   text-align: center;

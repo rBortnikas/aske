@@ -27,7 +27,6 @@ function ChatWindow(props: Props) {
   let [messages, setMessages] = useState(props.messages || []);
 
   useEffect(() => {
-    console.log(props.messages[0]);
     setMessages(sortMessages(props.messages));
   }, [props.messages]);
 
