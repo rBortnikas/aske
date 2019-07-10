@@ -4,12 +4,13 @@ import ActionButton from "../../components/ActionButton";
 import SessionCreatedPage from "./SessionCreatedPage";
 import styled from "styled-components";
 import { TextInput } from "grommet";
+import { truncate } from "../../utils/utils"
 
 export default function CreateSessionPage() {
-  let [sessionName, setSessionName] = useState("");
-  let [sessionInfoText, setSessionInfoText] = useState("");
-  let [sessionCreated, setSessionCreated] = useState(false);
-  let [sessionCreationError, setSessionCreationError] = useState(false);
+  const [sessionName, setSessionName] = useState("");
+  const [sessionInfoText, setSessionInfoText] = useState("");
+  const [sessionCreated, setSessionCreated] = useState(false);
+  const [sessionCreationError, setSessionCreationError] = useState(false);
 
   function handleOnClick() {
     createSession(sessionName, sessionInfoText).then(res => {
@@ -26,34 +27,34 @@ export default function CreateSessionPage() {
       {sessionCreated && !sessionCreationError ? (
         <SessionCreatedPage sessionName={sessionName} />
       ) : (
-        <>
-          <Title>Create a question room</Title>
+          <>
+            <Title>Create a question room</Title>
 
-          <InputField
-            focusIndicator={false}
-            value={sessionName}
-            onChange={e => setSessionName(e.target.value)}
-            placeholder="Enter session name"
-            size="large"
-          />
+            <InputField
+              focusIndicator={false}
+              value={sessionName}
+              onChange={(e: any) => setSessionName(truncate(e.target.value, 15))}
+              placeholder="Enter session name"
+              size="large"
+            />
 
-          <InputField
-            focusIndicator={false}
-            value={sessionInfoText}
-            onChange={e => setSessionInfoText(e.target.value)}
-            placeholder="An optional header"
-            size="large"
-          />
+            <InputField
+              focusIndicator={false}
+              value={sessionInfoText}
+              onChange={e => setSessionInfoText(e.target.value)}
+              placeholder="An optional header"
+              size="large"
+            />
 
-          <ActionButton
-            label="Create"
-            color="#686DFF"
-            primary
-            focusIndicator={false}
-            onClick={handleOnClick}
-          />
-        </>
-      )}
+            <ActionButton
+              label="Create"
+              color="#686DFF"
+              primary
+              focusIndicator={false}
+              onClick={handleOnClick}
+            />
+          </>
+        )}
 
       {!sessionCreated && sessionCreationError && (
         <h4>something went wrong :/</h4>

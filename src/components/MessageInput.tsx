@@ -5,6 +5,7 @@ import { TextArea } from "grommet";
 import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
 import { closeModalAction } from "../actions/actions";
+import { truncate } from "../utils/utils";
 
 interface Props {
   sessionId: string;
@@ -14,7 +15,8 @@ export default function MessageInput(props: Props) {
   const [message, setMessage] = useState("");
 
   function handleOnChange(e: any) {
-    setMessage(e.target.value);
+    const message = truncate(e.target.value, 80);
+    setMessage(message);
   }
 
   function handleAsk() {

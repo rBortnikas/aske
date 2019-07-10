@@ -24,7 +24,7 @@ const mapStateToProps = (state: ReduxState) => {
 };
 
 function ChatWindow(props: Props) {
-  let [messages, setMessages] = useState(props.messages || []);
+  const [messages, setMessages] = useState(props.messages || []);
 
   useEffect(() => {
     setMessages(sortMessages(props.messages));

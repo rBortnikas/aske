@@ -1,13 +1,13 @@
 import openSocket from "socket.io-client";
 import { store } from "./index";
-
 import { updateMessages, loadMessages } from "./actions/actions";
+import { Message } from "./interfaces/message/index";
 
 // const env = "http://9b224820.ngrok.io";
 const env = "http://localhost:8888";
-let socket;
-let currentSessionId;
-function openUniqueSocket(sessionId) {
+let socket: any = undefined;
+let currentSessionId: string | undefined = undefined;
+function openUniqueSocket(sessionId: string) {
   currentSessionId = sessionId;
   socket = openSocket(`${env}`, {
     upgrade: false,
@@ -18,7 +18,7 @@ function openUniqueSocket(sessionId) {
   });
 }
 
-export function subscribeToSocketActions(sessionId) {
+export function subscribeToSocketActions(sessionId: string) {
   if (socket) {
     socket.close();
   }
@@ -26,35 +26,32 @@ export function subscribeToSocketActions(sessionId) {
     console.log("opened a socket!!!!", sessionId);
     openUniqueSocket(sessionId);
   }
-  socket.on("LOAD_MESSAGES", messages => {
+  socket.on("LOAD_MESSAGES", (messages: Message[]) => {
     loadMessages(messages);
   });
 
-  socket.on("MESSAGE", message => {
-    console.log("we got a msg: ", message);
-    store.dispatch(updateMessages(message));
+  socket.on("MESSAGE", (messages: Message[]) => {
+    updateMessages(messages);
   });
 }
 
-export function socketSendMessage(messageText, sessionId) {
-  console.log("sending msg: ", sessionId);
+export function socketSendMessage(messageText: string, sessionId: string) {
   const author = "Rokas";
-  // const sessionId = "test123456";
   const message = { messageText, author, sessionId };
   socket.emit("MESSAGE", message);
 }
 
-export function socketUpvoteMessage(messageId, upvoterId) {
+export function socketUpvoteMessage(messageId: string, upvoterId: string) {
   const upvoteObject = { messageId, upvoterId };
   socket.emit("UPVOTE", upvoteObject);
 }
 
-export function socketDownvoteMessage(messageId, upvoterId) {
+export function socketDownvoteMessage(messageId: string, upvoterId: string) {
   const upvoteObject = { messageId, upvoterId };
   socket.emit("DOWNVOTE", upvoteObject);
 }
 
-export function createSession(sessionName, sessionInfoText) {
+export function createSession(sessionName: string, sessionInfoText: string) {
   const url = `${env}/api/createSession?sessionName=${sessionName}&sessionInfoText=${sessionInfoText}`;
   const params = {
     method: "POST"
@@ -66,7 +63,7 @@ export function createSession(sessionName, sessionInfoText) {
 }
 
 // gets sessionId which is used by sockets
-export function getSession(sessionName) {
+export function getSession(sessionName: string) {
   const url = `${env}/api/getSession?sessionName=${sessionName}`;
   const params = {
     method: "GET"

@@ -70,4 +70,6 @@ const MessageContent = styled.div`
   padding: 10px 15px 10px 15px;
   display: flex;
   align-items: center;
+  white-space:normal;
+  word-break: break-all;
 `;

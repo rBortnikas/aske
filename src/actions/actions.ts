@@ -1,13 +1,14 @@
 import ActionNames from "./actionNames";
 import { dispatch } from "../interfaces/store";
+import { Message } from "../interfaces/message/index";
 
-export const updateMessages = (payload: string[]) =>
+export const updateMessages = (payload: Message[]) =>
   dispatch({
     type: ActionNames.UPDATE_MESSAGES,
     payload
   });
 
-export const loadMessages = (payload: string[]) =>
+export const loadMessages = (payload: Message[]) =>
   dispatch({
     type: ActionNames.LOAD_MESSAGES,
     payload

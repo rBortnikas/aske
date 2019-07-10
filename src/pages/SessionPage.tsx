@@ -20,19 +20,14 @@ const mapStateToProps = (state: ReduxState) => {
 function SessionPage(props: Props) {
   const [error, setError] = useState("");
   const { session, messages, location } = props;
-  const pathname = location && location.pathname;
-  const pathnameComponents =
-    pathname && pathname.split("/").filter((item: string) => item !== "");
   useEffect(() => {
-    //make these things functions
-    if (pathnameComponents && pathnameComponents.length <= 3) {
-      const sessionName = pathnameComponents.pop();
-
+    const sessionName = getSessionNameFromLocation(location);
+    if (sessionName) {
       getSession(sessionName)
-        .then(miniSessionObject => {
-          miniSessionObject = JSON.parse(miniSessionObject as any);
+        .then(session => {
+          session = JSON.parse(session as any);
           // @ts-ignore
-          const { sessionId, sessionInfoText } = miniSessionObject;
+          const { sessionId, sessionInfoText } = session;
           subscribeToSocketActions(sessionId);
           setSession({ sessionName, sessionId, sessionInfoText });
         })
@@ -42,6 +37,15 @@ function SessionPage(props: Props) {
         });
     }
   }, []);
+
+  function getSessionNameFromLocation(location: any): string | undefined {
+    const pathname = location && location.pathname;
+    const pathnameComponents =
+      pathname && pathname.split("/").filter((item: string) => item !== "");
+    if (pathnameComponents && pathnameComponents.length <= 3) {
+      return pathnameComponents.pop();
+    }
+  }
 
   return (
     <Wrapper>
@@ -59,15 +63,15 @@ function SessionPage(props: Props) {
           )}
         </>
       ) : (
-        <>
-          <Heading level="2" textAlign="center" margin="xlarge">
-            No such rooms!
+          <>
+            <Heading level="2" textAlign="center" margin="xlarge">
+              No such rooms!
           </Heading>
-          <Heading level="5" textAlign="center">
-            You might have made a typo
+            <Heading level="5" textAlign="center">
+              You might have made a typo
           </Heading>
-        </>
-      )}
+          </>
+        )}
     </Wrapper>
   );
 }
