@@ -15,14 +15,16 @@ function SessionCreatedPage(props: Props) {
     <>
       <Title>People may now join the room by visiting</Title>
       <h2>
+        <Link to={`${routes.SESSION}/${sessionName}`}>
+          www.aske.ly/session/{sessionName}
+        </Link>
+      </h2>
+      <h3>or</h3>
+      <h2>
         <Link to="">www.aske.ly</Link>
       </h2>
       <h3>and entering</h3>
       <h2>{sessionName}</h2>
-      <h3>or directly by</h3>
-      <h2>
-        <Link to={`${routes.SESSION}/${sessionName}`}>www.aske.ly/{sessionName}</Link>
-      </h2>
       <h3>Afraid of forgetting? Send these details to yourself</h3>
       <InputField
         focusIndicator={false}
@@ -39,7 +41,7 @@ function SessionCreatedPage(props: Props) {
         onClick={() => alert("work in progress :)")}
       />
     </>
-  )
+  );
 }
 
 export default SessionCreatedPage;
