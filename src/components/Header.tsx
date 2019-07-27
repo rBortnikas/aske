@@ -2,8 +2,9 @@ import { routes } from "../pages/routes";
 import { withRouter, RouteProps } from "react-router";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReduxState } from "../interfaces/store";
+import { ResponsiveContext } from "grommet";
 
 const mapStateToProps = (state: ReduxState) => {
   return {
@@ -24,10 +25,12 @@ interface BackgroundImageProps {
 interface ShapeProps {
   width: number;
   height: number;
+  screenSize: string;
 }
 
 interface ShapeContainerProps {
   width: number;
+  screenSize: string;
 }
 
 interface LogoProps {
@@ -52,9 +55,6 @@ const Header = (props: HeaderProps) => {
   );
 };
 
-export default
-  withRouter(connect(mapStateToProps, null)(Header) as any); //can be done by checking redux state
-
 const BackgroundImage = (props: BackgroundImageProps) => {
   const [width, setWidth] = useState(window.innerWidth);
   const [height, setHeight] = useState(30);
@@ -76,14 +76,18 @@ const BackgroundImage = (props: BackgroundImageProps) => {
   }, [props.error]);
 
   return (
-    <ShapeContainer width={width}>
-      <Shape width={width} height={height} />
-    </ShapeContainer>
+    <ResponsiveContext.Consumer>
+      {screenSize => (
+        <ShapeContainer width={width} screenSize={screenSize}>
+          <Shape width={width} height={height} screenSize={screenSize} />
+        </ShapeContainer>
+      )}
+    </ResponsiveContext.Consumer>
   );
 };
 
 const Shape = styled.div`
-  width:  ${(props: ShapeProps) => props.width + 100}px;
+  width: ${(props: ShapeProps) => props.width + 100}px;
   right: 50px;
   background-color: #08126c;
   height: ${(props: ShapeProps) => props.height}px;
@@ -92,6 +96,12 @@ const Shape = styled.div`
   border-bottom-left-radius: 120px;
   border-bottom-right-radius: 120px;
   transition: 0.1s ease-out;
+  ${(props: ShapeProps) =>
+    props.screenSize === "large" &&
+    css`
+      width: 800px;
+      right: 0;
+    `};
 `;
 
 const ShapeContainer = styled.div`
@@ -99,6 +109,11 @@ const ShapeContainer = styled.div`
   width: ${(props: ShapeContainerProps) => props.width}px;
   position: absolute;
   z-index: -1;
+  ${(props: ShapeContainerProps) =>
+    props.screenSize === "large" &&
+    css`
+      max-width: 800px;
+    `};
 `;
 
 const Logo = styled.h1`
@@ -109,3 +124,8 @@ const Logo = styled.h1`
   margin-top: ${(props: LogoProps) => (props.isLarge ? "35px" : "20px")};
   transition: 0.1s ease-out;
 `;
+
+export default withRouter(connect(
+  mapStateToProps,
+  null
+)(Header) as any);

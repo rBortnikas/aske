@@ -43,9 +43,11 @@ function ChatWindow(props: Props) {
     <>
       <>
         {props.messages.length === 0 && (
-          <Heading level="3" margin="xlarge" textAlign="center">
-            No questions here yet, be the first one to ask!
-          </Heading>
+          <Container>
+            <Heading level="3" margin="xlarge">
+              No questions here yet, be the first one to ask!
+            </Heading>
+          </Container>
         )}
         {messages.map((msg, idx) => (
           <MessageBox msg={msg} key={msg.messageId} isTop={idx === 0} />
@@ -69,6 +71,13 @@ function ChatWindow(props: Props) {
 }
 
 export default connect(mapStateToProps)(ChatWindow);
+
+const Container = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`;
 
 const Space = styled.div`
   height: 60px;

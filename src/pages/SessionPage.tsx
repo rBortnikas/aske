@@ -63,20 +63,18 @@ function SessionPage(props: Props) {
           )}
         </>
       ) : (
-          <>
-            <Heading level="2" textAlign="center" margin="xlarge">
-              No such rooms!
+        <>
+          <Heading level="2" textAlign="center" margin="xlarge">
+            No such rooms!
           </Heading>
-            <Heading level="5" textAlign="center">
-              You might have made a typo
+          <Heading level="5" textAlign="center">
+            You might have made a typo
           </Heading>
-          </>
-        )}
+        </>
+      )}
     </Wrapper>
   );
 }
-
-export default connect(mapStateToProps)(SessionPage);
 
 const SessionInfoText = styled.div`
   margin: 0 20px 0 20px;
@@ -90,3 +88,5 @@ const Wrapper = styled.div`
 const SessionHeading = styled.h3`
   margin-top: 30px;
 `;
+
+export default connect(mapStateToProps)(SessionPage);
