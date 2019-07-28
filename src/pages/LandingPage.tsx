@@ -7,15 +7,13 @@ import {
 import styled from "styled-components";
 import { routes } from "./routes";
 import { Box, Heading, TextInput, Button } from "grommet";
-import { Session } from "../interfaces/session/index";
-
-interface Props {}
+import { RouterProps } from "react-router";
 
 interface ErrorContainerProps {
   height: number;
 }
 
-export default function LandingPage(props: any) {
+export default function LandingPage({ history }: RouterProps) {
   const [sessionName, setSessionName] = useState("");
   const [error, setError] = useState("");
 
@@ -25,7 +23,7 @@ export default function LandingPage(props: any) {
         .then((session: any) => {
           console.log(session);
           session = JSON.parse(session);
-          props.history.push({
+          history.push({
             pathname: `${routes.SESSION}/${sessionName}`
           });
           clearSessionNameErrorAction();
@@ -46,7 +44,7 @@ export default function LandingPage(props: any) {
   }
 
   function handleCreateSession() {
-    props.history.push({
+    history.push({
       pathname: routes.CREATE_SESSION
     });
   }
@@ -108,7 +106,7 @@ const SessionInput = styled(TextInput)`
 `;
 
 const ErrorContainer = styled.div`
-  height: ${(props: ErrorContainerProps) => props.height}px;
+  height: ${({ height }: ErrorContainerProps) => height}px;
   transition: 0.1s ease-out;
 `;
 

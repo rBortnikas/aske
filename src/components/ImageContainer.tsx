@@ -16,8 +16,8 @@ const Container = styled.div`
   position: fixed;
   z-index: -2;
   width: 411px;
-  ${(props: Props) =>
-    props.screenSize === "medium" &&
+  ${({ screenSize }: Props) =>
+    screenSize === "medium" &&
     css`
       width: 100%;
       //   left: 50%;

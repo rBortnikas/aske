@@ -11,10 +11,10 @@ interface UpvoteBubbleProps {
   upvoted: boolean;
 }
 
-export default function MessageBox(props: MessageBoxProps) {
+export default function MessageBox({ msg, isTop }: MessageBoxProps) {
   const [upvoted, setUpvoted] = useState(false);
 
-  const { messageId, author, messageText, upvotes } = props.msg;
+  const { messageId, author, messageText, upvotes } = msg;
 
   function onClick() {
     if (upvoted) {
@@ -31,7 +31,7 @@ export default function MessageBox(props: MessageBoxProps) {
       <MessageBubble>
         <UpvoteBubble onClick={onClick} upvoted={upvoted}>
           <div>{upvotes}</div>
-          {props.isTop && <div>pts</div>}
+          {isTop && <div>pts</div>}
         </UpvoteBubble>
         <MessageContent>{messageText}</MessageContent>
       </MessageBubble>
@@ -49,8 +49,8 @@ const UpvoteBubble = styled.div`
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   padding: 7px;
-  background-color: ${(props: UpvoteBubbleProps) =>
-    props.upvoted ? "#00DD95" : "#939393"};
+  background-color: ${({ upvoted }: UpvoteBubbleProps) =>
+    upvoted ? "#00DD95" : "#939393"};
   width: 40px;
   z-index: 20;
   color: white;
@@ -70,6 +70,6 @@ const MessageContent = styled.div`
   padding: 10px 15px 10px 15px;
   display: flex;
   align-items: center;
-  white-space:normal;
+  white-space: normal;
   word-break: break-all;
 `;
