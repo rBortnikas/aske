@@ -4,31 +4,26 @@ import styled from "styled-components";
 import ActionButton from "./ActionButton";
 import MessageInput from "./MessageInput";
 import BottomBar from "./BottomBar";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { openModalAction } from "../actions/actions";
 import { Heading } from "grommet";
 import { ReduxState } from "../interfaces/store/index";
 import { Message } from "../interfaces/message/index";
 
-interface OwnProps {
+interface Props {
   messages: Message[];
   sessionId: string;
 }
 
-type Props = ReturnType<typeof mapStateToProps> & OwnProps;
-
-const mapStateToProps = (state: ReduxState) => {
-  return {
-    modalOpen: state.UI.modalOpen
-  };
-};
-
-function ChatWindow(props: Props) {
-  const [messages, setMessages] = useState(props.messages || []);
+export default function ChatWindow({ messages, sessionId }: Props) {
+  const [messageOrder, setMessageOrder] = useState(
+    sortMessages(messages) || []
+  );
+  const modalOpen = useSelector((state: ReduxState) => state.UI.modalOpen);
 
   useEffect(() => {
-    setMessages(sortMessages(props.messages));
-  }, [props.messages]);
+    setMessageOrder(sortMessages(messages));
+  }, [messages]);
 
   function handleAsk() {
     openModalAction();
@@ -42,20 +37,20 @@ function ChatWindow(props: Props) {
   return (
     <>
       <>
-        {props.messages.length === 0 && (
+        {messages.length === 0 && (
           <Container>
             <Heading level="3" margin="xlarge">
               No questions here yet, be the first one to ask!
             </Heading>
           </Container>
         )}
-        {messages.map((msg, idx) => (
+        {messageOrder.map((msg, idx) => (
           <MessageBox msg={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
-      {props.modalOpen && <MessageInput sessionId={props.sessionId} />}
+      {modalOpen && <MessageInput sessionId={sessionId} />}
       <Space />
-      {!props.modalOpen && (
+      {!modalOpen && (
         <BottomBar>
           <ActionButton
             label="Ask"
@@ -69,8 +64,6 @@ function ChatWindow(props: Props) {
     </>
   );
 }
-
-export default connect(mapStateToProps)(ChatWindow);
 
 const Container = styled.div`
   width: 100%;

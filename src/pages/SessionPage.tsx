@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import ChatWindow from "../components/ChatWindow";
 import styled from "styled-components";
 import { Heading } from "grommet";
@@ -8,18 +8,12 @@ import { setSession } from "../actions/actions";
 import { ReduxState } from "../interfaces/store/index";
 import { RouteProps } from "react-router";
 
-type Props = RouteProps & ReturnType<typeof mapStateToProps>;
+export default function SessionPage({ location }: RouteProps) {
+  const messages = useSelector((state: ReduxState) => state.messages);
+  const session = useSelector((state: ReduxState) => state.session);
 
-const mapStateToProps = (state: ReduxState) => {
-  return {
-    messages: state.messages,
-    session: state.session
-  };
-};
-
-function SessionPage(props: Props) {
   const [error, setError] = useState("");
-  const { session, messages, location } = props;
+
   useEffect(() => {
     const sessionName = getSessionNameFromLocation(location);
     if (sessionName) {
@@ -88,5 +82,3 @@ const Wrapper = styled.div`
 const SessionHeading = styled.h3`
   margin-top: 30px;
 `;
-
-export default connect(mapStateToProps)(SessionPage);
