@@ -1,9 +1,7 @@
 import openSocket from "socket.io-client";
-import { store } from "./index";
 import { updateMessages, loadMessages } from "./actions/actions";
-import { Message } from "./interfaces/message/index";
+import { Message } from "./interfaces/store/index";
 
-// const env = "http://9b224820.ngrok.io";
 const env = "http://localhost:8888";
 let socket: any = undefined;
 let currentSessionId: string | undefined = undefined;

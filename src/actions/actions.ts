@@ -1,6 +1,6 @@
 import ActionNames from "./actionNames";
 import { dispatch } from "../interfaces/store";
-import { Message } from "../interfaces/message/index";
+import { Message, Session } from "../interfaces/store/index";
 
 export const updateMessages = (payload: Message[]) =>
   dispatch({
@@ -14,13 +14,13 @@ export const loadMessages = (payload: Message[]) =>
     payload
   });
 
-export const setSession = (
-  payload: any // set proper types
-) =>
+export const setSession = (payload: Session) => {
+  console.log(payload);
   dispatch({
     type: ActionNames.SET_SESSION,
     payload
   });
+};
 
 export const openModalAction = () =>
   dispatch({

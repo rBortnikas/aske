@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { socketUpvoteMessage, socketDownvoteMessage } from "../api";
+import { Message } from "../interfaces/store/index";
 import styled from "styled-components";
 
 interface MessageBoxProps {
-  msg: any;
+  message: Message;
   isTop: boolean;
 }
 
@@ -11,10 +12,10 @@ interface UpvoteBubbleProps {
   upvoted: boolean;
 }
 
-export default function MessageBox({ msg, isTop }: MessageBoxProps) {
+export default function MessageBox({ message, isTop }: MessageBoxProps) {
   const [upvoted, setUpvoted] = useState(false);
 
-  const { messageId, author, messageText, upvotes } = msg;
+  const { messageId, author, messageText, upvotes } = message;
 
   function onClick() {
     if (upvoted) {

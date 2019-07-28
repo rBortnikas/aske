@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import { openModalAction } from "../actions/actions";
 import { Heading } from "grommet";
 import { ReduxState } from "../interfaces/store/index";
-import { Message } from "../interfaces/message/index";
+import { Message } from "../interfaces/store/index";
 
 interface Props {
   messages: Message[];
@@ -45,7 +45,7 @@ export default function ChatWindow({ messages, sessionId }: Props) {
           </Container>
         )}
         {messageOrder.map((msg, idx) => (
-          <MessageBox msg={msg} key={msg.messageId} isTop={idx === 0} />
+          <MessageBox message={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
       {modalOpen && <MessageInput sessionId={sessionId} />}

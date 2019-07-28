@@ -20,9 +20,7 @@ export default function LandingPage({ history }: RouterProps) {
   function handleOnClick() {
     if (sessionName) {
       getSession(sessionName)
-        .then((session: any) => {
-          console.log(session);
-          session = JSON.parse(session);
+        .then(() => {
           history.push({
             pathname: `${routes.SESSION}/${sessionName}`
           });

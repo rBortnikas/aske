@@ -5,8 +5,9 @@ import styled from "styled-components";
 import { Heading } from "grommet";
 import { getSession, subscribeToSocketActions } from "../api";
 import { setSession } from "../actions/actions";
-import { ReduxState } from "../interfaces/store/index";
+import { ReduxState, Session } from "../interfaces/store/index";
 import { RouteProps } from "react-router";
+import { getSessionNameFromLocation } from "../utils/utils";
 
 export default function SessionPage({ location }: RouteProps) {
   const messages = useSelector((state: ReduxState) => state.messages);
@@ -15,11 +16,11 @@ export default function SessionPage({ location }: RouteProps) {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const sessionName = getSessionNameFromLocation(location);
+    const sessionName = location && getSessionNameFromLocation(location);
     if (sessionName) {
       getSession(sessionName)
-        .then(session => {
-          session = JSON.parse(session as any);
+        .then(JSONsession => {
+          const session: Session = JSON.parse(JSONsession as string);
           // @ts-ignore
           const { sessionId, sessionInfoText } = session;
           subscribeToSocketActions(sessionId);
@@ -31,15 +32,6 @@ export default function SessionPage({ location }: RouteProps) {
         });
     }
   }, []);
-
-  function getSessionNameFromLocation(location: any): string | undefined {
-    const pathname = location && location.pathname;
-    const pathnameComponents =
-      pathname && pathname.split("/").filter((item: string) => item !== "");
-    if (pathnameComponents && pathnameComponents.length <= 3) {
-      return pathnameComponents.pop();
-    }
-  }
 
   return (
     <Wrapper>
