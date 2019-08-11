@@ -105,7 +105,7 @@ io.on("connection", socket => {
 // });
 
 app.listen(process.env.PORT, process.env.IP, () => {
-  console.log("Listening on 8888");
+  console.log("Listening on process.env.PORT, process.env.IP");
 });
 
 function restructureMessage(message) {
