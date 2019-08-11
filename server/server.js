@@ -1,15 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-
 const app = express();
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
-
 const uniqid = require("uniqid");
 const moment = require("moment");
 
 app.use(cors());
-
 app.post("/api/createSession/", (req, res) => {
   const sessionName = req.query.sessionName;
   const sessionInfoText = req.query.sessionInfoText;
@@ -34,7 +31,6 @@ app.get("/api/getSession/", (req, res) => {
     return session.sessionName === sessionName;
   });
   if (session) {
-    // console.log("session id returned: ", session.sessionId);
     const miniSessionObject = {
       sessionId: session.sessionId,
       sessionInfoText: session.sessionInfoText
@@ -65,7 +61,6 @@ io.on("connection", socket => {
       return session.sessionId === sessionId;
     });
     if (session) {
-      // console.log("re-sent message", message)
       session.messages.push(message);
       io.sockets.emit("MESSAGE", message);
     }
@@ -105,8 +100,9 @@ io.on("connection", socket => {
   });
 });
 
-console.log("Listening on 8888");
-server.listen(8888);
+server.listen(8888, () => {
+  console.log("Listening on 8888");
+});
 
 function restructureMessage(message) {
   const messageId = "MSG_" + uniqid();
