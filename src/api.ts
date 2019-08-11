@@ -2,7 +2,7 @@ import openSocket from "socket.io-client";
 import { updateMessages, loadMessages } from "./actions/actions";
 import { Message } from "./interfaces/store/index";
 
-const env = "http://localhost:8888";
+const env = "https://aske-message-service.herokuapp.com/";
 let socket: any = undefined;
 let currentSessionId: string | undefined = undefined;
 function openUniqueSocket(sessionId: string) {

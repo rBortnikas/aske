@@ -100,7 +100,11 @@ io.on("connection", socket => {
   });
 });
 
-server.listen(8888, () => {
+// server.listen(8888, () => {
+//   console.log("Listening on 8888");
+// });
+
+app.listen(process.env.PORT, process.env.IP, () => {
   console.log("Listening on 8888");
 });
 
