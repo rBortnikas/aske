@@ -1,10 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-const app = express();
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
+// const server = require("http").createServer(app);
+const socketIO = require("socket.io");
 const uniqid = require("uniqid");
 const moment = require("moment");
+
+const PORT = process.env.PORT || 8888;
+
+const app = express();
+
+const server = app.listen(PORT, process.env.IP, () => {
+  console.log(`Listening on ${PORT}`);
+});
+
+const io = socketIO(server);
 
 app.use(cors());
 app.post("/api/createSession/", (req, res) => {
@@ -98,14 +107,6 @@ io.on("connection", socket => {
       }
     }
   });
-});
-
-// server.listen(8888, () => {
-//   console.log("Listening on 8888");
-// });
-
-app.listen(process.env.PORT, process.env.IP, () => {
-  console.log("Listening on process.env.PORT, process.env.IP");
 });
 
 function restructureMessage(message) {

@@ -3,6 +3,7 @@ import { updateMessages, loadMessages } from "./actions/actions";
 import { Message } from "./interfaces/store/index";
 
 const env = "https://aske-message-service.herokuapp.com";
+// const env = "http://localhost:8888";
 let socket: any = undefined;
 let currentSessionId: string | undefined = undefined;
 function openUniqueSocket(sessionId: string) {
