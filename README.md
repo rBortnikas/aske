@@ -22,3 +22,4 @@ Aske is powered by React Socket.io and Express. Written in TypeScript.
 
 - Create tests for critical functionality.
 - Experiment with graphQL/Apollo.
+- Fix large screen UI.
