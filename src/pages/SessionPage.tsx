@@ -49,15 +49,15 @@ export default function SessionPage({ location }: RouteProps) {
           )}
         </>
       ) : (
-        <>
-          <Heading level="2" textAlign="center" margin="xlarge">
-            No such rooms!
+          <>
+            <Heading level="2" textAlign="center" margin="xlarge">
+              No such rooms!
           </Heading>
-          <Heading level="5" textAlign="center">
-            You might have made a typo
+            <Heading level="5" textAlign="center">
+              You might have made a typo
           </Heading>
-        </>
-      )}
+          </>
+        )}
     </Wrapper>
   );
 }

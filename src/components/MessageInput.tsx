@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { socketSendMessage } from "../api";
-import { TextArea } from "grommet";
 import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
 import { closeModalAction } from "../actions/actions";

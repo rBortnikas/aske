@@ -2,8 +2,8 @@ import openSocket from "socket.io-client";
 import { updateMessages, loadMessages } from "./actions/actions";
 import { Message } from "./interfaces/store/index";
 
-const env = "https://aske-message-service.herokuapp.com";
-// const env = "http://localhost:8888";
+// const env = "https://aske-message-service.herokuapp.com";
+const env = "http://localhost:8888";
 let socket: any = undefined;
 let currentSessionId: string | undefined = undefined;
 function openUniqueSocket(sessionId: string) {
@@ -68,9 +68,10 @@ export function getSession(sessionName: string) {
     method: "GET"
   };
 
-  return fetch(url, params)
-    .then(res => res.text())
-    .catch(error => {
-      console.log("getSession Error: ", error);
-    });
+  return fetch(url, params).then(res => {
+    if (!res.ok) {
+      throw res;
+    }
+    return res.text();
+  });
 }

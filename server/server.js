@@ -33,13 +33,13 @@ app.get("/api/getSession/", (req, res) => {
     return session.sessionName === sessionName;
   });
   if (session) {
-    const miniSessionObject = {
+    const sessionDTO = {
       sessionId: session.sessionId,
       sessionInfoText: session.sessionInfoText
     };
-    return res.send(miniSessionObject); // need better error handling here
+    return res.send(sessionDTO); // need better error handling here
   } else {
-    return res.status(400).send("error");
+    return res.status(400).end();
   }
 });
 

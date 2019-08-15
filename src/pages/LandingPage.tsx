@@ -62,12 +62,10 @@ export default function LandingPage({ history }: RouterProps) {
         </Heading>
       </ErrorContainer>
       <TextInput
-        // focusIndicator={false}
         value={sessionName}
         onChange={handleSessionNameInput}
         placeholder="enter room ID"
         onPressEnter={handleJoin}
-      // size="large"
       />
       <Box pad="small" />
       <ActionButton
