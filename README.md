@@ -1,7 +1,7 @@
 # Aske
 
 Aske is a Q&A app for events of any kind, from conferences to lectures.
-A live version can be found [here](aske.surge.sh).
+A live version can be found [here](https://aske.surge.sh).
 
 It allows users to create question rooms and share them with others.
 
