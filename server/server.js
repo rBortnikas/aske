@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-// const server = require("http").createServer(app);
 const socketIO = require("socket.io");
 const uniqid = require("uniqid");
 const moment = require("moment");
@@ -8,14 +7,8 @@ const moment = require("moment");
 const PORT = process.env.PORT || 8888;
 
 const app = express();
-
-const server = app.listen(PORT, process.env.IP, () => {
-  console.log(`Listening on ${PORT}`);
-});
-
-const io = socketIO(server);
-
 app.use(cors());
+
 app.post("/api/createSession/", (req, res) => {
   const sessionName = req.query.sessionName;
   const sessionInfoText = req.query.sessionInfoText;
@@ -49,6 +42,12 @@ app.get("/api/getSession/", (req, res) => {
     return res.status(400).send("error");
   }
 });
+
+const server = app.listen(PORT, process.env.IP, () => {
+  console.log(`Listening on ${PORT}`);
+});
+
+const io = socketIO(server);
 
 let volatileSessionStack = [];
 
