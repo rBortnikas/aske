@@ -6,6 +6,7 @@ import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
 import { closeModalAction } from "../actions/actions";
 import { truncate } from "../utils/utils";
+import TextInputArea from '../components/TextInputs/TextInputArea';
 
 interface Props {
   sessionId: string;
@@ -35,6 +36,7 @@ export default function MessageInput(props: Props) {
           placeholder="say something"
           value={message}
           onChange={handleOnChange}
+          onPressEnter={handleAsk}
         />
       </Wrapper>
       <BottomBar>
@@ -75,7 +77,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const MessageTextArea = styled(TextArea)`
+const MessageTextArea = styled(TextInputArea)`
   background-color: white;
   border: 2px solid #08126c;
   margin-bottom: 16px;

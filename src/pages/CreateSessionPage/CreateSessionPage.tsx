@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { createSession } from "../../api";
 import ActionButton from "../../components/ActionButton";
 import SessionCreatedPage from "./SessionCreatedPage";
+import TextInput from '../../components/TextInputs/TextInput';
 import styled from "styled-components";
-import { TextInput } from "grommet";
 import { truncate } from "../../utils/utils"
 
 export default function CreateSessionPage() {
@@ -30,20 +30,17 @@ export default function CreateSessionPage() {
           <>
             <Title>Create a question room</Title>
 
-            <InputField
-              focusIndicator={false}
+            <Input
               value={sessionName}
               onChange={(e: any) => setSessionName(truncate(e.target.value, 15))}
               placeholder="Enter session name"
-              size="large"
+              border
             />
-
-            <InputField
-              focusIndicator={false}
+            <Input
               value={sessionInfoText}
               onChange={e => setSessionInfoText(e.target.value)}
               placeholder="An optional header"
-              size="large"
+              border
             />
 
             <ActionButton
@@ -65,13 +62,12 @@ export default function CreateSessionPage() {
 
 const Container = styled.div`
   text-align: center;
+  display: flex;
+  flex-direction: column;
 `;
 
-const InputField = styled(TextInput)`
-  background-color: white;
-  border: 2px solid #08126c;
-  margin-bottom: 16px;
-  margin-top: 10px;
+const Input = styled(TextInput)`
+  margin: 10px 0 16px 0;
 `;
 
 const Title = styled.h1`

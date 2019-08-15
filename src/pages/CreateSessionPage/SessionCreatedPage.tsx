@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { TextInput } from "grommet";
+import TextInput from '../../components/TextInputs/TextInput';
 import ActionButton from "../../components/ActionButton";
 import { routes } from "../routes";
 import { Link } from "react-router-dom";
@@ -31,12 +31,9 @@ function SessionCreatedPage(props: Props) {
       <Heading level={3}>
         Afraid of forgetting? Send these details to yourself
       </Heading>
-      <InputField
-        focusIndicator={false}
-        // value={sessionInfoText}
-        // onChange={e => { }}
+      <TextInput
         placeholder="your@email.com"
-        size="large"
+        border
       />
       <ActionButton
         label="Send"

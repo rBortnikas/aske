@@ -6,8 +6,9 @@ import {
 } from "../actions/actions";
 import styled from "styled-components";
 import { routes } from "./routes";
-import { Box, Heading, TextInput, Button } from "grommet";
+import { Box, Heading, Button } from "grommet";
 import { RouterProps } from "react-router";
+import TextInput from '../components/TextInputs/TextInput';
 
 interface ErrorContainerProps {
   height: number;
@@ -17,7 +18,7 @@ export default function LandingPage({ history }: RouterProps) {
   const [sessionName, setSessionName] = useState("");
   const [error, setError] = useState("");
 
-  function handleOnClick() {
+  function handleJoin() {
     if (sessionName) {
       getSession(sessionName)
         .then(() => {
@@ -60,16 +61,17 @@ export default function LandingPage({ history }: RouterProps) {
           {error}
         </Heading>
       </ErrorContainer>
-      <SessionInput
-        focusIndicator={false}
+      <TextInput
+        // focusIndicator={false}
         value={sessionName}
         onChange={handleSessionNameInput}
         placeholder="enter room ID"
-        size="large"
+        onPressEnter={handleJoin}
+      // size="large"
       />
       <Box pad="small" />
       <ActionButton
-        onClick={handleOnClick}
+        onClick={handleJoin}
         label="Join"
         color="#00DD95"
         primary
@@ -97,10 +99,6 @@ const ActionButton = styled(Button)`
   &:hover {
     box-shadow: none;
   }
-`;
-
-const SessionInput = styled(TextInput)`
-  background-color: white;
 `;
 
 const ErrorContainer = styled.div`
