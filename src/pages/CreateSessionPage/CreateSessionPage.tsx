@@ -12,7 +12,7 @@ export default function CreateSessionPage() {
   const [sessionCreated, setSessionCreated] = useState(false);
   const [sessionCreationError, setSessionCreationError] = useState(false);
 
-  function handleOnClick() {
+  function handleCreateSession() {
     createSession(sessionName, sessionInfoText).then(res => {
       if (res && res.status === 200) {
         setSessionCreated(true);
@@ -34,12 +34,14 @@ export default function CreateSessionPage() {
               value={sessionName}
               onChange={(e: any) => setSessionName(truncate(e.target.value, 15))}
               placeholder="Enter session name"
+              onPressEnter={handleCreateSession}
               border
             />
             <Input
               value={sessionInfoText}
               onChange={e => setSessionInfoText(e.target.value)}
               placeholder="An optional header"
+              onPressEnter={handleCreateSession}
               border
             />
 
@@ -48,7 +50,7 @@ export default function CreateSessionPage() {
               color="#686DFF"
               primary
               focusIndicator={false}
-              onClick={handleOnClick}
+              onClick={handleCreateSession}
             />
           </>
         )}
