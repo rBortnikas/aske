@@ -48,8 +48,6 @@ export default function CreateSessionPage() {
             <ActionButton
               label="Create"
               color="#686DFF"
-              primary
-              focusIndicator={false}
               onClick={handleCreateSession}
             />
           </>

@@ -38,8 +38,6 @@ function SessionCreatedPage(props: Props) {
       <ActionButton
         label="Send"
         color="#686DFF"
-        primary
-        focusIndicator={false}
         onClick={() => alert("work in progress :)")}
       />
     </Container>

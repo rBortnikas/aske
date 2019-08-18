@@ -40,7 +40,7 @@ const StyledInput = styled.input`
   outline: none;
   padding: 15px;
   border: none;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 13px;
   border: 2px solid ${({ border }: StyledInputProps) => border ? '#1c2578' : 'white'};
 

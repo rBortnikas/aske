@@ -42,16 +42,12 @@ export default function MessageInput(props: Props) {
         <ActionButton
           label="Close"
           color="#FF6F6F"
-          primary
-          focusIndicator={false}
           onClick={handleClose}
         />
 
         <ActionButton
           label="Ask"
           color="#686DFF"
-          primary
-          focusIndicator={false}
           onClick={handleAsk}
         />
       </BottomBar>

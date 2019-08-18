@@ -55,8 +55,6 @@ export default function ChatWindow({ messages, sessionId }: Props) {
           <ActionButton
             label="Ask"
             color="#686DFF"
-            primary
-            focusIndicator={false}
             onClick={handleAsk}
           />
         </BottomBar>

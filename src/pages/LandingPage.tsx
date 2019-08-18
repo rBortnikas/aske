@@ -4,9 +4,10 @@ import {
   setSessionNameErrorAction,
   clearSessionNameErrorAction
 } from "../actions/actions";
+import ActionButton from '../components/ActionButton';
 import styled from "styled-components";
 import { routes } from "./routes";
-import { Box, Heading, Button } from "grommet";
+import { Box, Heading } from "grommet";
 import { RouterProps } from "react-router";
 import TextInput from '../components/TextInputs/TextInput';
 
@@ -72,32 +73,16 @@ export default function LandingPage({ history }: RouterProps) {
         onClick={handleJoin}
         label="Join"
         color="#00DD95"
-        primary
       />
-      <Heading level="2">Or create session</Heading>
+      <Heading level="2">Or create room</Heading>
       <ActionButton
         label="Create"
         color="#686DFF"
-        primary
-        focusIndicator={false}
         onClick={handleCreateSession}
       />
     </Wrapper>
   );
 }
-
-const ActionButton = styled(Button)`
-  border: 3px solid white;
-  padding: 12px 25px 12px 25px;
-  font-size: 25px;
-  box-shadow: none;
-  &:focus {
-    box-shadow: none;
-  }
-  &:hover {
-    box-shadow: none;
-  }
-`;
 
 const ErrorContainer = styled.div`
   height: ${({ height }: ErrorContainerProps) => height}px;
