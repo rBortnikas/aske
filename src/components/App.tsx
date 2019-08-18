@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./Header";
+import Header from "./Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
 import SessionPage from "../pages/SessionPage";
@@ -10,7 +10,6 @@ import { routes } from "../pages/routes";
 import { Grommet, Box, ResponsiveContext } from "grommet";
 import { theme } from "../theme";
 import styled from "styled-components";
-import image from "../peopleDancing.jpg";
 
 export default function App() {
   return (
@@ -35,7 +34,7 @@ export default function App() {
                 </Switch>
               </Box>
               <ImageContainer screenSize={screenSize}>
-                <Image src={image} />
+                <Image src={"https://i.imgur.com/yt5OOnW.jpg"} />
               </ImageContainer>
             </>
           )}

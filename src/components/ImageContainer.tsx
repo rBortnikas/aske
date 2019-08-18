@@ -15,12 +15,11 @@ const Container = styled.div`
   bottom: 0px;
   position: fixed;
   z-index: -2;
-  width: 411px;
+  width: 100%;
+  transform: translateY(50%);
   ${({ screenSize }: Props) =>
-    screenSize === "medium" &&
+    screenSize === "small" &&
     css`
-      width: 100%;
-      //   left: 50%;
-      transform: translateY(50%);
+      transform: translateY(10%);
     `};
 `;

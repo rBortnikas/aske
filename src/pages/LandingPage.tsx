@@ -4,13 +4,13 @@ import {
   setSessionNameErrorAction,
   clearSessionNameErrorAction
 } from "../actions/actions";
-import { checkRoomNameValidity } from '../utils/utils';
-import ActionButton from '../components/ActionButton';
+import { checkRoomNameValidity } from "../utils/utils";
+import ActionButton from "../components/ActionButton";
 import styled from "styled-components";
 import { routes } from "./routes";
 import { Box, Heading } from "grommet";
 import { RouterProps } from "react-router";
-import TextInput from '../components/TextInputs/TextInput';
+import TextInput from "../components/TextInputs/TextInput";
 
 interface ErrorContainerProps {
   height: number;
@@ -30,7 +30,6 @@ export default function LandingPage({ history }: RouterProps) {
           clearSessionNameErrorAction();
         })
         .catch(error => {
-          console.log("Oopsie: ", error);
           setSessionNameErrorAction();
           setError("no rooms named " + sessionName);
         });
@@ -45,6 +44,7 @@ export default function LandingPage({ history }: RouterProps) {
   }
 
   function handleCreateSession() {
+    clearSessionNameErrorAction();
     history.push({
       pathname: routes.CREATE_SESSION
     });
@@ -70,17 +70,18 @@ export default function LandingPage({ history }: RouterProps) {
         onPressEnter={handleJoin}
       />
       <Box pad="small" />
-      <ActionButton
-        onClick={handleJoin}
-        label="Join"
-        color="#00DD95"
-      />
+      <ActionButton onClick={handleJoin} label="Join" color="#00DD95" />
       <Heading level="2">Or create room</Heading>
       <ActionButton
         label="Create"
         color="#686DFF"
         onClick={handleCreateSession}
       />
+      <Description>
+        Aske lets your audience ask questions via phones. Questions can be
+        displayed on a big screen and voted on by other users.
+        <Nudge>Just create a room in 5 seconds and share a link!</Nudge>
+      </Description>
     </Wrapper>
   );
 }
@@ -93,4 +94,20 @@ const ErrorContainer = styled.div`
 const Wrapper = styled.div`
   text-align: center;
   letter-spacing: 1px;
+`;
+
+const Description = styled.div`
+  margin-top: 10vh;
+  padding: 0 40px;
+  text-align: center;
+  font-size: 20px;
+  max-width: 350px;
+  font-style: italic;
+  line-height: 25px;
+`;
+
+const Nudge = styled.p`
+  margin-top: 30px;
+  font-weight: bold;
+  font-style: initial;
 `;

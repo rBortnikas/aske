@@ -5,7 +5,7 @@ import BottomBar from "./BottomBar";
 import ActionButton from "./ActionButton";
 import { closeModalAction } from "../actions/actions";
 import { truncate } from "../utils/utils";
-import TextInputArea from '../components/TextInputs/TextInputArea';
+import TextInputArea from "../components/TextInputs/TextInputArea";
 
 interface Props {
   sessionId: string;
@@ -15,7 +15,7 @@ export default function MessageInput(props: Props) {
   const [message, setMessage] = useState("");
 
   function handleOnChange(e: any) {
-    const message = truncate(e.target.value, 80);
+    const message = truncate(e.target.value, 120);
     setMessage(message);
   }
 
@@ -39,11 +39,7 @@ export default function MessageInput(props: Props) {
         />
       </Wrapper>
       <BottomBar>
-        <ActionButton
-          label="Close"
-          color="#FF6F6F"
-          onClick={handleClose}
-        />
+        <ActionButton label="Close" color="#FF6F6F" onClick={handleClose} />
 
         <ActionButton
           label="Ask"

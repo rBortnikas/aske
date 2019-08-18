@@ -5,7 +5,7 @@ export function truncate(string: string, length: number) {
 }
 
 export function checkRoomNameValidity(name: string) {
-  const specialCharacters = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  const specialCharacters = /[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
   return name.length <= 15 && !specialCharacters.test(name);
 }
 
