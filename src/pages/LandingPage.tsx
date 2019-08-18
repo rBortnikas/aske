@@ -4,6 +4,7 @@ import {
   setSessionNameErrorAction,
   clearSessionNameErrorAction
 } from "../actions/actions";
+import { checkRoomNameValidity } from '../utils/utils';
 import ActionButton from '../components/ActionButton';
 import styled from "styled-components";
 import { routes } from "./routes";
@@ -38,7 +39,7 @@ export default function LandingPage({ history }: RouterProps) {
 
   function handleSessionNameInput(e: any) {
     const name = e.target.value;
-    if (name.length <= 15) {
+    if (checkRoomNameValidity(name)) {
       setSessionName(name);
     }
   }

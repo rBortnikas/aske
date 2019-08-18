@@ -6,9 +6,9 @@ import MessageInput from "./MessageInput";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
 import { openModalAction } from "../actions/actions";
-import { Heading } from "grommet";
 import { ReduxState } from "../interfaces/store/index";
 import { Message } from "../interfaces/store/index";
+import { SadCat } from "../icons/Icons";
 
 interface Props {
   messages: Message[];
@@ -38,18 +38,18 @@ export default function ChatWindow({ messages, sessionId }: Props) {
     <>
       <>
         {messages.length === 0 && (
-          <Container>
-            <Heading level="3" margin="xlarge">
-              No questions here yet, be the first one to ask!
-            </Heading>
-          </Container>
+          <Wrapper>
+            <NoMessagesContainer>
+              <SadCat />
+              <h3>No questions here yet, be the first one to ask!</h3>
+            </NoMessagesContainer>
+          </Wrapper>
         )}
         {messageOrder.map((msg, idx) => (
           <MessageBox message={msg} key={msg.messageId} isTop={idx === 0} />
         ))}
       </>
       {modalOpen && <MessageInput sessionId={sessionId} />}
-      <Space />
       {!modalOpen && (
         <BottomBar>
           <ActionButton
@@ -63,13 +63,16 @@ export default function ChatWindow({ messages, sessionId }: Props) {
   );
 }
 
-const Container = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: center;
+const NoMessagesContainer = styled.div`
   text-align: center;
+  padding: 15px 30px;
+  border-radius: 13px;
+  background-color: #EDEDFF;
+  margin: 20% 25px 0 25px;
+  max-width: 400px;
 `;
 
-const Space = styled.div`
-  height: 60px;
-`;
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`

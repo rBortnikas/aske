@@ -5,20 +5,21 @@ interface Props {
   onClick: () => void;
   label: string;
   color?: string;
+  disabled?: boolean;
 }
 
 interface StyledButtonProps {
   color?: string;
 }
-export default function ActionButton({ color, label, onClick }: Props) {
+export default function ActionButton({ color, label, onClick, disabled }: Props) {
 
   return (
-    <StyledButton onClick={onClick} color={color}>{label}</StyledButton>
+    <StyledButton onClick={onClick} disabled={disabled} color={color}>{label}</StyledButton>
   )
 }
 
 const StyledButton = styled.button`
-  background: ${({ color }: StyledButtonProps) => color ? color : '#00DD95'};
+  background-color: ${({ color }: StyledButtonProps) => color ? color : '#00DD95'};
   outline:0;
   border: 2px white solid;
   border-radius: 13px;
@@ -27,5 +28,8 @@ const StyledButton = styled.button`
   font-size: 20px;
   &:focus {
     border: 2px #1E90FF solid;
+  }
+  &:disabled {
+    background-color: #939393};
   }
 `;

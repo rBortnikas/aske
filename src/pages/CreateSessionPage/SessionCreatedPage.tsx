@@ -10,7 +10,7 @@ interface Props {
   sessionName: string;
 }
 
-function SessionCreatedPage(props: Props) {
+export default function SessionCreatedPage(props: Props) {
   const { sessionName } = props;
   return (
     <Container>
@@ -35,6 +35,7 @@ function SessionCreatedPage(props: Props) {
         placeholder="your@email.com"
         border
       />
+      <Spacer />
       <ActionButton
         label="Send"
         color="#686DFF"
@@ -48,13 +49,6 @@ const Title = styled.h3`
   margin-top: 40px;
 `;
 
-const InputField = styled(TextInput)`
-  background-color: white;
-  border: 2px solid #08126c;
-  margin-bottom: 16px;
-  margin-top: 10px;
-`;
-
 const Container = styled.div`
   margin: 0 20px 0 20px;
 `;
@@ -65,4 +59,6 @@ const Background = styled.div`
   border-radius: 15px;
 `;
 
-export default SessionCreatedPage;
+const Spacer = styled.div`
+  height: 10px;
+`

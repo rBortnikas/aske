@@ -4,7 +4,7 @@ import ActionButton from "../../components/ActionButton";
 import SessionCreatedPage from "./SessionCreatedPage";
 import TextInput from '../../components/TextInputs/TextInput';
 import styled from "styled-components";
-import { truncate } from "../../utils/utils"
+import { checkRoomNameValidity, truncate } from "../../utils/utils"
 
 export default function CreateSessionPage() {
   const [sessionName, setSessionName] = useState("");
@@ -13,13 +13,22 @@ export default function CreateSessionPage() {
   const [sessionCreationError, setSessionCreationError] = useState(false);
 
   function handleCreateSession() {
-    createSession(sessionName, sessionInfoText).then(res => {
-      if (res && res.status === 200) {
-        setSessionCreated(true);
-      } else {
-        setSessionCreationError(true);
-      }
-    });
+    if (sessionName) {
+      createSession(sessionName, sessionInfoText).then(res => {
+        if (res && res.status === 200) {
+          setSessionCreated(true);
+        } else {
+          setSessionCreationError(true);
+        }
+      });
+    }
+  }
+
+  function handleSessionNameChange(e: any) {
+    const name = e.target.value;
+    if (checkRoomNameValidity(name)) {
+      setSessionName(name)
+    }
   }
 
   return (
@@ -32,14 +41,14 @@ export default function CreateSessionPage() {
 
             <Input
               value={sessionName}
-              onChange={(e: any) => setSessionName(truncate(e.target.value, 15))}
+              onChange={handleSessionNameChange}
               placeholder="Enter session name"
               onPressEnter={handleCreateSession}
               border
             />
             <Input
               value={sessionInfoText}
-              onChange={e => setSessionInfoText(e.target.value)}
+              onChange={e => setSessionInfoText(truncate(e.target.value, 15))}
               placeholder="An optional header"
               onPressEnter={handleCreateSession}
               border
@@ -49,6 +58,7 @@ export default function CreateSessionPage() {
               label="Create"
               color="#686DFF"
               onClick={handleCreateSession}
+              disabled={!sessionName}
             />
           </>
         )}
