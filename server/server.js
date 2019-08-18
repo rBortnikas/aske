@@ -28,9 +28,9 @@ app.post("/api/createSession/", (req, res) => {
 });
 
 app.get("/api/getSession/", (req, res) => {
-  const sessionName = req.query.sessionName;
+  const sessionName = req.query.sessionName.toLowerCase();
   const session = volatileSessionStack.find(session => {
-    return session.sessionName === sessionName;
+    return session.sessionName.toLowerCase() === sessionName;
   });
   if (session) {
     const sessionDTO = {
