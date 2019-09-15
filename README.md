@@ -1,7 +1,7 @@
 # Aske
 
 Aske is a Q&A app for events of any kind, from conferences to lectures.
-A live version can be found [here](https://aske.surge.sh).
+A live version can be found [here](https://aske.surge.sh) (it takes about 20 seconds for the free tier Heroku to spin up the backend).
 
 It allows users to create question rooms and share them with others.
 
