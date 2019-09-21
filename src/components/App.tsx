@@ -1,4 +1,8 @@
 import React from "react";
+import { Provider } from "react-redux";
+import configureStore from "../configureStore";
+import { setGlobalStore } from "../interfaces/store/index";
+import styled from "styled-components";
 import Header from "./Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
@@ -9,38 +13,48 @@ import ImageContainer from "../components/ImageContainer";
 import { routes } from "../pages/routes";
 import { Grommet, Box, ResponsiveContext } from "grommet";
 import { theme } from "../theme";
-import styled from "styled-components";
+
+export const store = configureStore();
+setGlobalStore(store.dispatch, store.getState);
 
 export default function App() {
   return (
-    <Grommet theme={theme}>
-      <BrowserRouter>
-        <ResponsiveContext.Consumer>
-          {screenSize => (
-            <>
-              <Box fill flex align="center">
-                <Header />
-                <Switch>
-                  <Route exact path={routes.LANDING} component={LandingPage} />
-                  <Route
-                    path={routes.CREATE_SESSION}
-                    component={CreateSessionPage}
-                  />
-                  <Route
-                    path={routes.SPECIFIC_SESSION}
-                    component={SessionPage}
-                  />
-                  <Route path={routes.ERROR} component={NotFoundPage} />
-                </Switch>
-              </Box>
-              <ImageContainer screenSize={screenSize}>
-                <Image src={"https://i.imgur.com/yt5OOnW.jpg"} />
-              </ImageContainer>
-            </>
-          )}
-        </ResponsiveContext.Consumer>
-      </BrowserRouter>
-    </Grommet>
+    <main data-testid="application">
+      <Provider store={store}>
+        <Grommet theme={theme}>
+          <BrowserRouter>
+            <ResponsiveContext.Consumer>
+              {screenSize => (
+                <>
+                  <Box fill flex align="center">
+                    <Header />
+                    <Switch>
+                      <Route
+                        exact
+                        path={routes.LANDING}
+                        component={LandingPage}
+                      />
+                      <Route
+                        path={routes.CREATE_SESSION}
+                        component={CreateSessionPage}
+                      />
+                      <Route
+                        path={routes.SPECIFIC_SESSION}
+                        component={SessionPage}
+                      />
+                      <Route path={routes.ERROR} component={NotFoundPage} />
+                    </Switch>
+                  </Box>
+                  <ImageContainer screenSize={screenSize}>
+                    <Image src={"https://i.imgur.com/yt5OOnW.jpg"} />
+                  </ImageContainer>
+                </>
+              )}
+            </ResponsiveContext.Consumer>
+          </BrowserRouter>
+        </Grommet>
+      </Provider>
+    </main>
   );
 }
 
