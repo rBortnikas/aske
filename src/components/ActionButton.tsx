@@ -18,7 +18,12 @@ export default function ActionButton({
   disabled
 }: Props) {
   return (
-    <StyledButton onClick={onClick} disabled={disabled} color={color}>
+    <StyledButton
+      onClick={onClick}
+      disabled={disabled}
+      color={color}
+      data-testid="action-button"
+    >
       {label}
     </StyledButton>
   );

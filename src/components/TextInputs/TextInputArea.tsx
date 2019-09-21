@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 interface Props {
   onPressEnter?: () => void;
   onChange?: (e: any) => void;
@@ -10,11 +9,9 @@ interface Props {
   className?: any;
 }
 
-
 export default function TextInputArea(props: Props) {
-
   function handleKeyPress(e: React.KeyboardEvent) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       props.onPressEnter && props.onPressEnter();
     }
   }
@@ -26,8 +23,9 @@ export default function TextInputArea(props: Props) {
       placeholder={props.placeholder}
       onKeyPress={handleKeyPress}
       className={props.className}
+      data-testid="text-input-area"
     />
-  )
+  );
 }
 
 const StyledInput = styled.textarea`
@@ -36,9 +34,9 @@ const StyledInput = styled.textarea`
   border: none;
   font-size: 16px;
   border-radius: 13px;
-  border: 2px solid '#1c2578';
+  border: 2px solid "#1c2578";
 
   &:focus {
-    border: 2px #1E90FF solid;
+    border: 2px #1e90ff solid;
   }
-`
+`;

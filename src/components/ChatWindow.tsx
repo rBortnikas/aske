@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MessageBox from "./MessageBox";
 import styled from "styled-components";
 import ActionButton from "./ActionButton";
-import MessageInput from "./TextInputs/MessageInput";
+import MessageInput from "./MessageInput";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
 import { openModalAction } from "../actions/actions";
@@ -52,11 +52,7 @@ export default function ChatWindow({ messages, sessionId }: Props) {
       {modalOpen && <MessageInput sessionId={sessionId} />}
       {!modalOpen && (
         <BottomBar>
-          <ActionButton
-            label="Ask"
-            color="#686DFF"
-            onClick={handleAsk}
-          />
+          <ActionButton label="Ask" color="#686DFF" onClick={handleAsk} />
         </BottomBar>
       )}
     </>
@@ -67,7 +63,7 @@ const NoMessagesContainer = styled.div`
   text-align: center;
   padding: 15px 30px;
   border-radius: 13px;
-  background-color: #EDEDFF;
+  background-color: #ededff;
   margin: 20% 25px 0 25px;
   max-width: 400px;
 `;
@@ -75,4 +71,4 @@ const NoMessagesContainer = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-`
+`;

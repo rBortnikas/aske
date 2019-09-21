@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { socketSendMessage } from "../../api";
-import BottomBar from "../BottomBar";
-import ActionButton from "../ActionButton";
-import { closeModalAction } from "../../actions/actions";
-import { truncate } from "../../utils/utils";
-import TextInputArea from "./TextInputArea";
+import { socketSendMessage } from "../api";
+import BottomBar from "./BottomBar";
+import ActionButton from "./ActionButton";
+import { closeModalAction } from "../actions/actions";
+import { truncate } from "../utils/utils";
+import TextInputArea from "./TextInputs/TextInputArea";
 
 interface Props {
   sessionId: string;

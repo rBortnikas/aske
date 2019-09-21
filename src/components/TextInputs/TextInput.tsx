@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-
 interface Props {
   onPressEnter?: () => void;
   onChange?: (e: any) => void;
@@ -16,24 +15,24 @@ interface StyledInputProps {
 }
 
 export default function TextInput(props: Props) {
-
   function handleKeyPress(e: React.KeyboardEvent) {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       props.onPressEnter && props.onPressEnter();
     }
   }
 
   return (
     <StyledInput
-      type='text'
+      type="text"
       value={props.value}
       onChange={props.onChange}
       placeholder={props.placeholder}
       onKeyPress={handleKeyPress}
       border={props.border}
       className={props.className}
+      data-testid="text-input"
     />
-  )
+  );
 }
 
 const StyledInput = styled.input`
@@ -42,9 +41,10 @@ const StyledInput = styled.input`
   border: none;
   font-size: 20px;
   border-radius: 13px;
-  border: 2px solid ${({ border }: StyledInputProps) => border ? '#1c2578' : 'white'};
+  border: 2px solid
+    ${({ border }: StyledInputProps) => (border ? "#1c2578" : "white")};
 
   &:focus {
-    border: 2px #1E90FF solid;
+    border: 2px #1e90ff solid;
   }
-`
+`;
