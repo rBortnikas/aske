@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MessageBox from "./MessageBox";
 import styled from "styled-components";
 import ActionButton from "./ActionButton";
-import MessageInput from "./MessageInput";
+import MessageInput from "./TextInputs/MessageInput";
 import BottomBar from "./BottomBar";
 import { useSelector } from "react-redux";
 import { openModalAction } from "../actions/actions";

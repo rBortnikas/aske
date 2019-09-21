@@ -80,7 +80,7 @@ export default function LandingPage({ history }: RouterProps) {
       <Description>
         Aske lets your audience ask questions via phones. Questions can be
         displayed on a big screen and voted on by other users.
-        <Nudge>Just create a room in 5 seconds and share a link!</Nudge>
+        <Nudge>Just create a room in just 5 seconds and share a link!</Nudge>
       </Description>
     </Wrapper>
   );
